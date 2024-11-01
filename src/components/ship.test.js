@@ -3,15 +3,15 @@
 bonkers when we try*/
 import { Ship } from "./ship";
 
-const destoyer = new Ship(3, "destoyer");
+const destroyer = new Ship(3, "destoyer");
 
 test("The ship takes damage", () => {
-  destoyer.hit();
-  expect(destoyer.health).toBe(2);
+  destroyer.hit();
+  expect(destroyer.health).toBe(2);
 });
 
 test("The ship gets sunk", () => {
-  destoyer.hit();
-  destoyer.hit();
-  expect(destoyer.isSunk()).toBe(true);
+  destroyer.hit();
+  destroyer.hit();
+  expect(destroyer.isSunk()).toBe(true);
 });
