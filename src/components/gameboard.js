@@ -28,12 +28,26 @@ class Gameboard {
 
   placeShip(ship, coordinatesObj) {
     //shipDirection is basically whether it's vertical or horizontal
-    let isApproved = this.checkPlacementSpace(ship, coordinatesObj);
+    this.processCoordinates(ship, coordinatesObj);
   }
 
-  checkPlacementSpace(ship, coordinatesObj) {
+  processCoordinates(ship, coordinatesObj) {
     let [coordinateX, coordinateY, shipDirection] = coordinatesObj;
     let shipSpace = ship.length;
+
+    let coordinateYend;
+    let coordinateXend;
+
+    if (shipDirection === "vertical") {
+      coordinateXend = cordinateX;
+      coordinateYend = coordinateY + shipSpace;
+      //probably return new Coordinate object would be a nice approach
+      //check every Y array from start to end to be empty
+    } else {
+      coordinateYend = cordinateY;
+      coordinateXend = coordinateX + shipSpace;
+      //check every X array from start to end to be empty
+    }
   }
 }
 
