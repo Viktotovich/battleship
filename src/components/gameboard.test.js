@@ -15,7 +15,6 @@ test("The are 10 vertical arrays", () => {
 
 test("The are 10 horizontal arrays", () => {
   let tilesCount = 0;
-  console.log(testGameboard.gameArea);
   testGameboard.gameArea[0].forEach(() => {
     tilesCount++;
   });
@@ -23,9 +22,11 @@ test("The are 10 horizontal arrays", () => {
 });
 
 let coordinatesObjTest = {
-  cordStart: [0, 0],
-  cordEnd: [3, 0],
-  //we don't need direction as originally assumed - whoever creates the object decides
+  xStart: 0,
+  xEnd: 3,
+  yStart: 0,
+  yEnd: 0,
+  shipDirection: "horizontal",
 };
 
 const destroyer = new Ship(3, "destroyer");

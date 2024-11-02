@@ -24,10 +24,37 @@ class Gameboard {
   }
 
   placeShip(ship, coordinatesObj) {
-    //This is revenge for inventing de-structuring /s
-    let [cordStart, cordEnd] = coordinatesObj;
-    let [cordX, cordY] = [cordStart[0], cordStart[1]];
-    let [cordEndX, cordEndY] = [cordEnd[0], cordEnd[1]];
+    let isValid = this.checkCoordinates(coordinatesObj);
+
+    if (isValid === false) {
+      throw new Error("The selected space is already taken");
+    } else {
+      //
+    }
+  }
+
+  checkCoordinates(coordinatesObj) {
+    let { xStart, xEnd, yStart, yEnd, shipDirection } = coordinatesObj;
+    let isLegal = true;
+    let cord;
+
+    if (shipDirection === "horizonal") {
+      for (let x = xStart; x < xEnd; x++) {
+        cord = this.gameArea[yStart][x];
+        if (cord !== null) {
+          isLegal = false;
+        }
+      }
+    } else {
+      for (let y = yStart; y < yEnd; y++) {
+        cord = this.gameArea[y][xStart];
+        if (cord !== null) {
+          isLegal = false;
+        }
+      }
+    }
+
+    return isLegal;
   }
 }
 
@@ -59,4 +86,39 @@ Solving placeShip()
       coordinateXend += shipSpace;
     }
 }
+
+
+//scope creep here went HARD
+
+  placeShip(ship, coordinatesObj) {
+    let [cordStart, cordEnd, shipDirection] = coordinatesObj;
+    let isLegalSpace = this.checkSpace(cordStart, cordEnd, shipDirection);
+  }
+
+  checkSpace(cordStart, cordEnd, shipDirection) {
+    let xStart = cordStart[0];
+    let xEnd = cordEnd[0];
+    let yStart = cordStart[1];
+    let yEnd = cordEnd[1];
+
+    let isLegal = true;
+
+    if (shipDirection === "verical") {
+      for (let x = xStart; x < xEnd; x++) {
+        this.checkCord(x, yStart) === null
+          ? (isLegal = true)
+          : (isLegal = false);
+      }
+    } else {
+      for (let y = yStart; y < yEnd; y++) {
+        this.checkCord(y, xStart) === null
+          ? (isLegal = true)
+          : (isLegal = false);
+      }
+    }
+  }
+
+  checkCord(cordX, cordY) {
+    return this.gameArea[cordY][cordX];
+  }
 */
