@@ -5,9 +5,9 @@ import { Ship } from "./ship";
 const testGameboard = new Gameboard("Player");
 
 test("The are 10 vertical arrays", () => {
-  testGameboard.initialize();
+  testGameboard.createBoard();
   let tilesCount = 0;
-  testGameboard.gameArea.forEach(() => {
+  testGameboard.board.forEach(() => {
     tilesCount++;
   });
   expect(tilesCount).toBe(10);
@@ -15,7 +15,7 @@ test("The are 10 vertical arrays", () => {
 
 test("The are 10 horizontal arrays", () => {
   let tilesCount = 0;
-  testGameboard.gameArea[0].forEach(() => {
+  testGameboard.board[0].forEach(() => {
     tilesCount++;
   });
   expect(tilesCount).toBe(10);
@@ -29,8 +29,15 @@ let coordinatesObjTest = {
   shipDirection: "horizontal",
 };
 
-const destroyer = new Ship(3, "destroyer");
-const chineseFishBoat = new Ship(3, "Friendly Neighborhood Fishing Boat");
+const destroyer = {
+  health: 3,
+  type: "destoyer",
+};
+
+const chineseFishBoat = {
+  health: 3,
+  type: "Friendly Neighborhood Fishing Boat",
+};
 
 test("Ships are placed", () => {
   testGameboard.placeShip(destroyer, coordinatesObjTest);
