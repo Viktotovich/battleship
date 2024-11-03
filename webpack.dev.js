@@ -1,16 +1,15 @@
 /* eslint-disable */
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
-const loader = require("mini-css-extract-plugin/types/loader.js");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = merge(common, {
   mode: "development",
   devtool: "inline-source-map",
-  //devtool: "eval-source-map", above is for Terser
   stats: {
     loggingDebug: ["babel-loader"],
   },
-  // above is for Babel
   devServer: {
     watchFiles: ["./src/index.html"],
   },
@@ -18,19 +17,18 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: "asset/resource",
       },
       {
