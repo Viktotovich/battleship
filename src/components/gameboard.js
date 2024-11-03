@@ -1,6 +1,6 @@
+/* eslint-disable */
 import { Ship } from "./ship";
 
-/* eslint-disable */
 class Gameboard {
   constructor(player) {
     this.player = player;
@@ -21,7 +21,50 @@ class Gameboard {
     return yAxis;
   }
 
-  placeShip() {}
+  placeShip(ship, cordObj) {
+    let placementData;
+    cordObj.shipDirection === "horizontal"
+      ? (placementData = this.placeOnX(cordObj))
+      : (placementData = this.placeOnY(cordObj));
+
+    /*There was a cleaner implementation, but this worked best because I didn't have to think about what happens if somewhere mid-way of adding a ship to tiles, we found out that one of the co-ordinates was taken*/
+
+    placementData.forEach((tile) => {
+      tile.addShip(ship);
+    });
+  }
+
+  placeOnX(cordObj) {
+    let { xStart, xEnd, yStart } = cordObj;
+    let tileArr = [];
+    let tile;
+
+    for (let x = xStart; x < xEnd; x++) {
+      tile = this.board[yStart][x];
+      if (tile.contains !== null) this.STOP();
+      tileArr.push(tile);
+    }
+
+    return tileArr;
+  }
+
+  placeOnY(cordObj) {
+    let { xStart, xEnd, yStart, yEnd } = cordObj;
+    let tileArr = [];
+    let tile;
+
+    for (let y = yStart; y < yEnd; y++) {
+      tile = this.board[y][xEnd];
+      if (tile.contains !== null) this.STOP();
+      tileArr.push(tile);
+    }
+
+    return tileArr;
+  }
+
+  STOP() {
+    throw new Error("space already taken");
+  }
 }
 
 //something akin to a linked list? like a Node
@@ -35,11 +78,13 @@ class Tile {
 
   addShip(ship) {
     this.contains = ship;
+    this.hasShip = true;
   }
 
   takeHit() {
     this.hit = true;
-    this.contains = null;
+    this.contains.hit();
+    this.contains = "carcass";
   }
 }
 

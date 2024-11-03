@@ -31,7 +31,7 @@ let coordinatesObjTest = {
 
 const destroyer = {
   health: 3,
-  type: "destoyer",
+  type: "destroyer",
 };
 
 const chineseFishBoat = {
@@ -42,12 +42,12 @@ const chineseFishBoat = {
 test("Ships are placed", () => {
   testGameboard.placeShip(destroyer, coordinatesObjTest);
   //expect those coordinates to contain the Ship object
-  expect(testGameboard[2][0]).toBe(destroyer);
+  expect(testGameboard.board[0][2].contains).toBe(destroyer);
 });
 
 test("Ships cannot be placed on top of each other", () => {
-  expect(testGameboard.placeShip(chineseFishBoat, coordinatesObjTest)).toBe(
-    Error
+  expect(testGameboard.placeShip(chineseFishBoat, coordinatesObjTest)).toThrow(
+    "space already taken"
   );
 });
 
