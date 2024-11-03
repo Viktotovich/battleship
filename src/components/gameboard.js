@@ -21,7 +21,8 @@ class Gameboard {
     return yAxis;
   }
 
-  placeShip(ship, cordObj) {
+  placeShip(shipObj, cordObj) {
+    let ship = this.unpackShip(shipObj);
     let placementData;
     cordObj.shipDirection === "horizontal"
       ? (placementData = this.placeOnX(cordObj))
@@ -32,6 +33,11 @@ class Gameboard {
     placementData.forEach((tile) => {
       tile.addShip(ship);
     });
+  }
+
+  unpackShip(shipObj) {
+    let ship = new Ship(shipObj.health, shipObj.type);
+    return ship;
   }
 
   placeOnX(cordObj) {
@@ -60,6 +66,30 @@ class Gameboard {
     }
 
     return tileArr;
+  }
+
+  receiveAttack(attackCordinates) {
+    let [x, y] = attackCordinates;
+    let attackedTile = this.board[y][x];
+
+    if (attackedTile.hit === true) {
+      return {
+        attack: "failed",
+        message: "repetition",
+      };
+    } else if (attackedTile.hasShip === false) {
+      attackedTile.hit = ture;
+      return {
+        attack: "success",
+        message: "miss",
+      };
+    } else if (attackedTile.hasShip === true) {
+      attackedTile.takeHit();
+      return {
+        attack: "success",
+        message: "bullseye",
+      };
+    }
   }
 
   STOP() {

@@ -42,18 +42,18 @@ const chineseFishBoat = {
 test("Ships are placed", () => {
   testGameboard.placeShip(destroyer, coordinatesObjTest);
   //expect those coordinates to contain the Ship object
-  expect(testGameboard.board[0][2].contains).toBe(destroyer);
+  expect(testGameboard.board[0][2].contains.name).toBe("destroyer");
 });
 
 test.skip("Ships cannot be placed on top of each other", () => {
   expect(testGameboard.placeShip(chineseFishBoat, coordinatesObjTest)).toThrow(
     "space already taken"
   );
-  //this test doesnt pass for some reason, but it's more effort than it's worth to fix
+  //this test doesnt pass for some reason, and it's more effort than it's worth to fix
 });
 
 test("Ships go boom", () => {
   testGameboard.receiveAttack([0, 0]);
   /*implies we want to turn hit squares into null, good idea? I don't know. Keep an eye on*/
-  expect(testGameboard.gameArea[0][0]).toBe(null);
+  expect(testGameboard.board[0][0].hit).toBe(true);
 });
