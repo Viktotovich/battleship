@@ -5,6 +5,8 @@ class Gameboard {
   constructor(player) {
     this.player = player;
     this.board = this.createBoard();
+    this.missedShots = [];
+    this.shipCount = 0;
   }
 
   createBoard() {
@@ -33,6 +35,8 @@ class Gameboard {
     placementData.forEach((tile) => {
       tile.addShip(ship);
     });
+
+    this.shipCount += 1;
   }
 
   unpackShip(shipObj) {
@@ -78,17 +82,29 @@ class Gameboard {
         message: "repetition",
       };
     } else if (attackedTile.hasShip === false) {
-      attackedTile.hit = ture;
+      attackedTile.hit = true;
+      this.missedShots.push(attackCordinates);
       return {
         attack: "success",
         message: "miss",
       };
-    } else if (attackedTile.hasShip === true) {
+    } else if (attackedTile.hasShip === true && attackedTile.hit === false) {
       attackedTile.takeHit();
-      return {
-        attack: "success",
-        message: "bullseye",
-      };
+
+      let isSunk = attackedTile.contains.isSunk();
+
+      if (isSunk === true) {
+        this.shipCount -= 1;
+        return {
+          attack: "success",
+          message: "sunk",
+        };
+      } else {
+        return {
+          attack: "success",
+          message: "bullseye",
+        };
+      }
     }
   }
 
@@ -114,7 +130,6 @@ class Tile {
   takeHit() {
     this.hit = true;
     this.contains.hit();
-    this.contains = "carcass";
   }
 }
 

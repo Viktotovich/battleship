@@ -53,7 +53,22 @@ test.skip("Ships cannot be placed on top of each other", () => {
 });
 
 test("Ships go boom", () => {
-  testGameboard.receiveAttack([0, 0]);
-  /*implies we want to turn hit squares into null, good idea? I don't know. Keep an eye on*/
+  expect(testGameboard.receiveAttack([0, 0]).attack).toBe("success");
   expect(testGameboard.board[0][0].hit).toBe(true);
+});
+
+test("We don't add failed placements to the total count of ships", () => {
+  testGameboard.placeShip(chineseFishBoat, coordinatesObjTest);
+  expect(testGameboard.shipCount).toBe(1);
+});
+
+test("Cant target the same tiles", () => {
+  expect(testGameboard.receiveAttack([0, 0]).attack).toBe("failed");
+  expect(testGameboard.receiveAttack([0, 0]).message).toBe("repetition");
+});
+
+test("The ship gets destroyed, and the death is recorded", () => {
+  expect(testGameboard.receiveAttack([1, 0]).attack).toBe("success");
+  expect(testGameboard.receiveAttack([2, 0]).message).toBe("sunk");
+  expect(testGameboard.shipCount).toBe(0);
 });
