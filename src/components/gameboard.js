@@ -111,6 +111,10 @@ class Gameboard {
   STOP() {
     throw new Error("space already taken");
   }
+
+  isEmpty() {
+    return this.shipCount === 0 ? true : false;
+  }
 }
 
 //something akin to a linked list? like a Node

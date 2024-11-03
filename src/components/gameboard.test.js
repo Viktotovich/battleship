@@ -72,3 +72,17 @@ test("The ship gets destroyed, and the death is recorded", () => {
   expect(testGameboard.receiveAttack([2, 0]).message).toBe("sunk");
   expect(testGameboard.shipCount).toBe(0);
 });
+
+/* Forgive me Father for I have sinned. 
+
+There is nothing on earth that would justify a test for a simple console.log */
+
+test("Console.log data", () => {
+  testGameboard.receiveAttack([0, 2]);
+  console.log(testGameboard.missedShots);
+});
+
+//this method can be called after an attack
+test("Correctly reports that it is empty and all ships are sunk", () => {
+  expect(testGameboard.isEmpty()).toBe(true);
+});
