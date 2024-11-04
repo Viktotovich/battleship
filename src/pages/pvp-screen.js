@@ -1,3 +1,5 @@
+import { mainGameDisplayController } from "./main-game";
+
 const pvpScreenController = {
   currentPlayer: 1,
   contentSpace: document.querySelector("#content"),
@@ -121,6 +123,7 @@ const formController = {
 
     if (pvpScreenController.currentPlayer > 2) {
       pvpScreenController.clearAll();
+      mainGameDisplayController.initiate(formController.gameInformation);
       //take players to main-game.js
     } else {
       pvpScreenController.clearAll();

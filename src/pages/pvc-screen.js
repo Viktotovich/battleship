@@ -1,3 +1,5 @@
+import { mainGameDisplayController } from "./main-game";
+
 const pvcScreenController = {
   contentSpace: document.querySelector("#content"),
   initiate: function () {
@@ -122,7 +124,7 @@ const nameFormController = {
 
     gameInformation.player1Name = uname;
     pvcScreenController.clearAll();
-    //take players to main-game.js
+    mainGameDisplayController.initiate(gameInformation);
   },
 };
 
