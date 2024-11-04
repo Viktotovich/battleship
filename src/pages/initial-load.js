@@ -7,6 +7,7 @@
 Nothing else matters - just to load the next page when done
  */
 import { pvpScreenController } from "./pvp-screen";
+import { pvcScreenController } from "./pvc-screen";
 
 const initialPageController = {
   contentSpace: document.querySelector("#content"),
@@ -66,6 +67,7 @@ const initialPageController = {
   loadPVC(e) {
     e.preventDefault();
     initialPageController.garbageCollect();
+    pvcScreenController.initiate();
   },
 
   garbageCollect() {
