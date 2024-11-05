@@ -3,7 +3,7 @@
 bonkers when we try*/
 import { Ship } from "./ship";
 
-const destroyer = new Ship(3, "destoyer");
+const destroyer = new Ship(3, "destroyer");
 
 test("The ship takes damage", () => {
   destroyer.hit();

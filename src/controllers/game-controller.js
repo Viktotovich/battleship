@@ -50,6 +50,34 @@ const gameController = {
       gametype: "pvp",
     };
   },
+  getShips() {
+    const carrier = {
+      health: 5,
+      type: "carrier",
+    };
+
+    const battleship = {
+      health: 4,
+      type: "battleship",
+    };
+
+    const cruiser = {
+      health: 3,
+      type: "cruiser",
+    };
+
+    const submarine = {
+      health: 3,
+      type: "submarine",
+    };
+
+    const destroyer = {
+      health: 2,
+      typeof: "destroyer",
+    };
+
+    return { carrier, battleship, cruiser, submarine, destroyer };
+  },
 };
 
 /*Pre-requisite tasks:

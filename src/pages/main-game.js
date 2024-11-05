@@ -3,6 +3,7 @@ import { gameController } from "../controllers/game-controller";
 import { domController } from "../controllers/dom-controller";
 
 const mainGameDisplayController = {
+  contentSpace: document.querySelector("#content"),
   initiate: function (gameObj) {
     let gameInfoObj = gameController.unpackGame(gameObj);
     let { p1Board, p2Board } = this.unpackDisplay(gameInfoObj);
@@ -10,7 +11,12 @@ const mainGameDisplayController = {
     let p1BoardDOM = domController.createDOMBoard();
     let p2BoardDOM = domController.createDOMBoard();
 
-    this.displayBoard(p1BoardDOM);
+    let title = this.createTitle(gameInfoObj.player1.name);
+    let shipPlacer = this.createShipPlacer();
+
+    this.contentSpace.appendChild(title);
+    this.contentSpace.appendChild(p1BoardDOM);
+    this.contentSpace.appendChild(shipPlacer);
   },
   unpackDisplay: function (gameInfo) {
     let p1Board = gameInfo.player1.gameboard.board;
@@ -21,19 +27,30 @@ const mainGameDisplayController = {
       p2Board,
     };
   },
-  displayBoard(board) {
-    //
+  createTitle(pName) {
+    const titleContainer = document.createElement("div");
+    const title = document.createElement("h2");
+
+    titleContainer.appendChild(title);
+
+    title.textContent = `${pName}, please place your ships!`;
+
+    titleContainer.classList.add("title-container");
+    title.classList.add("title");
+
+    return titleContainer;
+  },
+  createShipPlacer: function () {
+    const ships = gameController.getShips();
+    const shipsInDOM = domController.unpackShips(ships);
+
+    return shipsInDOM;
   },
 };
 
 /* Next Steps:
     You can completely forget about all other pages, and only touch them when doing frontend. We get everything we will ever need out of them with the gameObj. 
     
-    We need to import the 2 controllers, this page is going to be controlled by dom-controller, and driven by game-controller. 
-
-    We send the information to game-controller to create all the necessary things for the game to flow. 
-
-    We expect to receive information from the dom-controller, based on user actions - and we then relay this information to the game-controller
 */
 
 /*What is a main-game.js file anyway?
