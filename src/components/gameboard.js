@@ -30,7 +30,9 @@ class Gameboard {
       ? (placementData = this.placeOnX(cordObj))
       : (placementData = this.placeOnY(cordObj));
 
-    /*There was a cleaner implementation, but this worked best because I didn't have to think about what happens if somewhere mid-way of adding a ship to tiles, we found out that one of the co-ordinates was taken*/
+    /*There was a cleaner implementation, but this worked best because I didn't have to 
+    think about what happens if somewhere mid-way of adding a ship to tiles, we found out 
+    that one of the co-ordinates was taken*/
 
     placementData.forEach((tile) => {
       tile.addShip(ship);

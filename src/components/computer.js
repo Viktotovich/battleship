@@ -5,6 +5,10 @@ class Computer {
     this.algorithm = this.getAlgorithm();
   }
 
+  play() {
+    // call the algorithm?
+  }
+
   //Hunt and Target algorithm is in-common between all
   getAlgorithm() {
     if (this.difficulty === "easy") {

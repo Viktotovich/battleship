@@ -1,4 +1,5 @@
 import { Player } from "../components/players";
+import { Computer } from "../components/computer";
 /* Almost like classes, but just easier to visualize. Data can get overwhelming, 
 this helps keep track of everything - this is my standard pattern for other projects*/
 
@@ -15,8 +16,23 @@ const gameController = {
       : this.startPVC(gameObj);
   },
   startPVC: function (gameObj) {
-    console.log(gameObj);
-    return true;
+    let player1 = new Player("player", gameObj.player1Name);
+    let player2 = new Player("computer");
+
+    player1.addOpponent(player2);
+    player2.addOpponent(player1);
+
+    player2 = new Computer(gameObj.cDifficulty, player2);
+
+    this.players.push(player1);
+    this.players.push(player2);
+
+    return {
+      player1,
+      player2: player2.playerObj,
+      computerControls: player2,
+      gametype: "pvc",
+    };
   },
   startPVP: function (gameObj) {
     let player1 = new Player("player", gameObj.player1Name);
@@ -25,9 +41,13 @@ const gameController = {
     player1.addOpponent(player2);
     player2.addOpponent(player1);
 
+    this.players.push(player1);
+    this.players.push(player2);
+
     return {
       player1,
       player2,
+      gametype: "pvp",
     };
   },
 };

@@ -5,7 +5,24 @@ import { domController } from "../controllers/dom-controller";
 const mainGameDisplayController = {
   initiate: function (gameObj) {
     let gameInfoObj = gameController.unpackGame(gameObj);
-    console.log(gameInfoObj);
+    let { p1Board, p2Board } = this.unpackDisplay(gameInfoObj);
+
+    let p1BoardDOM = domController.createDOMBoard();
+    let p2BoardDOM = domController.createDOMBoard();
+
+    this.displayBoard(p1BoardDOM);
+  },
+  unpackDisplay: function (gameInfo) {
+    let p1Board = gameInfo.player1.gameboard.board;
+    let p2Board = gameInfo.player2.gameboard.board;
+
+    return {
+      p1Board,
+      p2Board,
+    };
+  },
+  displayBoard(board) {
+    //
   },
 };
 
