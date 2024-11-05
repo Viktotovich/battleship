@@ -1,4 +1,8 @@
-# webpack-template
-Webpack development template for use in other projects to have a head-start. Most of the code for setting up the webpack environment is same - this is taking advantage of that fact.
+# webpack x Battleship
 
-NPM scripts, prod, development, and other configs including ESLint is set-up. (Except Prettier, as it's much easier to make do with the VSCode extention instead)
+05-11-2024: Project is slightly halted due to work, but I
+think it's documented enough to make ease of picking it back
+up again extremely easy.
+
+I could swear with my current passion I could do this in a
+week, hopefully work won't kill that passion.

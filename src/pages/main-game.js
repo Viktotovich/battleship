@@ -1,5 +1,13 @@
-/*very import to deferentiate between this, and 
-gameController*/
+/* eslint-disable */
+import { gameController } from "../controllers/game-controller";
+import { domController } from "../controllers/dom-controller";
+
+const mainGameDisplayController = {
+  initiate: function (gameObj) {
+    let gameInfoObj = gameController.unpackGame(gameObj);
+    console.log(gameInfoObj);
+  },
+};
 
 /* Next Steps:
     You can completely forget about all other pages, and only touch them when doing frontend. We get everything we will ever need out of them with the gameObj. 
@@ -11,19 +19,18 @@ gameController*/
     We expect to receive information from the dom-controller, based on user actions - and we then relay this information to the game-controller
 */
 
-const mainGameDisplayController = {
-  initiate: function (gameObj) {
-    this.unpackGame(gameObj);
-  },
-  unpackGame: function (gameObj) {
-    gameObj.type === "pvp" ? this.startPVP(gameObj) : this.startPVC(gameObj);
-  },
-  startPVC: function (gameObj) {
-    console.log(gameObj);
-  },
-  startPVP: function (gameObj) {
-    console.log(gameObj);
-  },
-};
+/*What is a main-game.js file anyway?
+
+This is supposed to control the page display itself, not the DOM manipulations, nor the 
+game flow. 
+
+What does that mean?
+
+Well, if we take, say the board itself. The first part would ask Player1 to create the 
+board - and then just relay the board information to the gameController to finalize the 
+Player's board. It does not create the board, nor deals with the fact that users 
+interact with the board - it does not care. main-game.js is a page responsible for 
+making sure that whatever page information comes its way is displayed, and that the next 
+step after submission is to display the Player 2 make-a-board page / or just start the game (if against a bot)*/
 
 export { mainGameDisplayController };
