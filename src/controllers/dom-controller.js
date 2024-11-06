@@ -1,5 +1,6 @@
 const domController = {
   playerDOMs: [],
+  placeableShips: [],
   createDOMBoard: function () {
     const boardContainer = document.createElement("div");
     let domArr = [];
@@ -23,6 +24,7 @@ const domController = {
     Object.keys(shipsObj).forEach((key) => {
       let shipDOM = this.unpackShip(shipsObj[key].health, key);
       container.appendChild(shipDOM);
+      this.placeableShips.push(shipDOM);
     });
 
     return container;

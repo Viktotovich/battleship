@@ -14,7 +14,6 @@ class Computer {
   getAlgorithm() {
     if (this.difficulty === "easy") {
       //victory through randomness
-      this.playerObj.gameboard;
       return;
     } else if (this.difficulty === "normal") {
       /* easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
@@ -32,6 +31,18 @@ class Computer {
       */
       return;
     }
+  }
+
+  easyAlgorithm() {
+    let x = Math.round(Math.random() * 10);
+    let y = Math.round(Math.random() * 10);
+
+    let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
+      x,
+      y,
+    ]);
+
+    return attackResponce;
   }
 }
 
