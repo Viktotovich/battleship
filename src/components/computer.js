@@ -2,6 +2,7 @@ class Computer {
   constructor(difficulty, playerObj) {
     this.difficulty = difficulty;
     this.playerObj = playerObj;
+    //send back a callback
     this.algorithm = this.getAlgorithm();
   }
 
@@ -13,6 +14,7 @@ class Computer {
   getAlgorithm() {
     if (this.difficulty === "easy") {
       //victory through randomness
+      this.playerObj.gameboard;
       return;
     } else if (this.difficulty === "normal") {
       /* easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
