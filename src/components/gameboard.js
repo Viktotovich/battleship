@@ -77,9 +77,7 @@ class Gameboard {
   receiveAttack(attackCordinates) {
     let [x, y] = attackCordinates;
 
-    console.log(`just in case ${attackCordinates}`);
     let attackedTile = this.board[y][x];
-    console.log(attackedTile);
 
     if (attackedTile.hit === true) {
       return {
@@ -87,7 +85,7 @@ class Gameboard {
         message: "repetition",
       };
     } else if (attackedTile.hasShip === false) {
-      attackedTile.hit = true;
+      attackedTile.takeHit();
       this.missedShots.push(attackCordinates);
       return {
         attack: "success",
