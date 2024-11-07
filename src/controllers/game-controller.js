@@ -73,7 +73,7 @@ const gameController = {
 
     const destroyer = {
       health: 2,
-      typeof: "destroyer",
+      type: "destroyer",
     };
 
     return { carrier, battleship, cruiser, submarine, destroyer };
