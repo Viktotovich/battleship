@@ -78,14 +78,13 @@ class Gameboard {
     let [x, y] = attackCordinates;
 
     let attackedTile = this.board[y][x];
-
     if (attackedTile.hit === true) {
       return {
         attack: "failed",
         message: "repetition",
       };
     } else if (attackedTile.hasShip === false) {
-      attackedTile.takeHit();
+      attackedTile.hit = true;
       this.missedShots.push(attackCordinates);
       return {
         attack: "success",

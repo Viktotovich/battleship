@@ -35,8 +35,8 @@ class Computer {
 
   easyAlgorithm() {
     // BUG FIX - there is no index 10 lol, oversight
-    let x = Math.round(Math.random() * 10) - 1;
-    let y = Math.round(Math.random() * 10) - 1;
+    let x = Math.round(Math.random() * 9);
+    let y = Math.round(Math.random() * 9);
 
     let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
       x,
@@ -48,9 +48,8 @@ class Computer {
       attackResponce.attack === "failed" &&
       this.playerObj.opponent.gameboard.shipCount !== 0
     ) {
-      this.easyAlgorithm();
+      return this.easyAlgorithm();
     } else {
-      console.log(this.playerObj.opponent.gameboard.shipCount);
       return attackResponce;
     }
   }
