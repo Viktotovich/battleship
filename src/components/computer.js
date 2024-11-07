@@ -34,15 +34,25 @@ class Computer {
   }
 
   easyAlgorithm() {
-    let x = Math.round(Math.random() * 10);
-    let y = Math.round(Math.random() * 10);
+    // BUG FIX - there is no index 10 lol, oversight
+    let x = Math.round(Math.random() * 10) - 1;
+    let y = Math.round(Math.random() * 10) - 1;
 
     let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
       x,
       y,
     ]);
 
-    return attackResponce;
+    //to verbose for my liking, but very solid
+    if (
+      attackResponce.attack === "failed" &&
+      this.playerObj.opponent.gameboard.shipCount !== 0
+    ) {
+      this.easyAlgorithm();
+    } else {
+      console.log(this.playerObj.opponent.gameboard.shipCount);
+      return attackResponce;
+    }
   }
 }
 

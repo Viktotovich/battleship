@@ -76,7 +76,10 @@ class Gameboard {
 
   receiveAttack(attackCordinates) {
     let [x, y] = attackCordinates;
+
+    console.log(`just in case ${attackCordinates}`);
     let attackedTile = this.board[y][x];
+    console.log(attackedTile);
 
     if (attackedTile.hit === true) {
       return {
