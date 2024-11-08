@@ -6,6 +6,7 @@ class Computer {
     this.algorithm = this.getAlgorithm();
     this.trailing = false;
     this.trailedCords = null;
+    this.trailingData = null;
   }
 
   play() {
@@ -80,7 +81,28 @@ class Computer {
     y changes twice, stays same twice. Change is +/- 1 y
     */
     let [x, y] = lastHitCoordinates;
+    let newCordinates = [x, y]; // do something here to check up down
     let attackResponce = this.playerObj.opponent.gameboard.receiveAttack();
+
+    /*Pseudo-code for trailing data, put initiallyHitCords, lastHitCords, and the rest 
+    of the information inside that object. Including trailing = true || false. This is 
+    cleaner, and allows us to have messy methods (which are the next steps).
+    
+    TODO:
+    1 - Put the methods getTileAbove, and etc inside the trailingData object.
+    2 - Add a few more properties: trailingData.hitShip === vertical || horizontal 
+    (based on hit data)
+    3 - Have a way to denote whether getTileAbove || below || etc has been covered.
+    If we know that, e.g below is null - we don't have to call it again. 
+
+    (optional)
+    4 - This is probably scope creep, but maybe even track if we accidentally hit 
+    another ship - keep it in the trailingData: accidentalHits Object||Arr. So that we 
+    can deal with the first ship, and then the accidentally hit ship
+    
+    */
+
+    return attackResponce;
   }
 
   getTileAbove(num) {
