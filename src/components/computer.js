@@ -78,13 +78,8 @@ class Computer {
     /* Refer to notebook, simple algorithm:
     x changes twice, stays same twice. Change is +/- 1 x
     y changes twice, stays same twice. Change is +/- 1 y
-
-    However, we are going greedier - and need to answer a few questions: what if we go out of bounds?
     */
     let [x, y] = lastHitCoordinates;
-
-    //generators would be perfect here
-
     let attackResponce = this.playerObj.opponent.gameboard.receiveAttack();
   }
 
@@ -104,6 +99,19 @@ class Computer {
     return num < 10 ? num + 1 : null;
   }
 
+  /* We can't use this feasibly TO TRAIL, as at times trailing with this leads to worst case scenario of having to fire 8 shots to get to a square occupied:
+                          null
+                          null 
+  null - null - let's say we hit here - ship - null - null 
+                          null
+                          null
+
+  If we use the shortest ship factor, worst case is that we will have to go up left 
+  down right 2 squares from the hit, and then again up down left right (hit) - which 
+  takes 8 hits. 
+
+  Possible untested solution: get half of ship factor. However, this algorithm might be redundant except for random targeting. 
+  */
   getShortestShipFactor() {
     /*another Ace up our sleeves, but we need to keep an array of ships stored on the 
     gameboard */
