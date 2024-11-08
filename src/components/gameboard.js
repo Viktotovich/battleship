@@ -75,6 +75,10 @@ class Gameboard {
   }
 
   receiveAttack(attackCordinates) {
+    if (!Array.isArray(attackCordinates)) {
+      throw new Error("Something somewhere blew up");
+    }
+
     let [x, y] = attackCordinates;
 
     let attackedTile = this.board[y][x];

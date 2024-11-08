@@ -4,10 +4,16 @@ class Computer {
     this.playerObj = playerObj;
     //send back a callback
     this.algorithm = this.getAlgorithm();
+    this.trailing = false;
+    this.trailedCords = null;
   }
 
   play() {
-    // call the algorithm?
+    if (this.trailing === true) {
+      return this.trailShot(this.trailedCords);
+    } else {
+      return this.algorithm();
+    }
   }
 
   //Hunt and Target algorithm is in-common between all
@@ -34,7 +40,6 @@ class Computer {
   }
 
   easyAlgorithm() {
-    // BUG FIX - there is no index 10 lol, oversight
     let x = Math.round(Math.random() * 9);
     let y = Math.round(Math.random() * 9);
 
@@ -43,15 +48,65 @@ class Computer {
       y,
     ]);
 
-    //to verbose for my liking, but very solid
+    return this.unpackResponce(attackResponce, [x, y]);
+  }
+
+  unpackResponce(attackResponce, cords) {
+    //if you tried to hit an already hit tile, call the algorithm again
     if (
-      attackResponce.attack === "failed" &&
+      attackResponce.message === "repetition" &&
       this.playerObj.opponent.gameboard.shipCount !== 0
     ) {
-      return this.easyAlgorithm();
+      return this.play();
+    } else if (attackResponce.message === "bullseye") {
+      //if successful, trail
+      this.trailedCords = cords;
+      return this.trailShot(cords);
+    } else if (attackResponce.message === "sunk") {
+      //if ship sunk, quit trail mode
+      this.trailing = false;
+      this.trailedCords = null;
+      return this.algorithm();
     } else {
+      //if a miss - return the response for other funcs to handle
       return attackResponce;
     }
+  }
+
+  //pass explicitly to have errors if I forget.
+  trailShot(lastHitCoordinates) {
+    /* Refer to notebook, simple algorithm:
+    x changes twice, stays same twice. Change is +/- 1 x
+    y changes twice, stays same twice. Change is +/- 1 y
+
+    However, we are going greedier - and need to answer a few questions: what if we go out of bounds?
+    */
+    let [x, y] = lastHitCoordinates;
+
+    //generators would be perfect here
+
+    let attackResponce = this.playerObj.opponent.gameboard.receiveAttack();
+  }
+
+  getTileAbove(num) {
+    return num > 0 ? num - 1 : null;
+  }
+
+  getTileBelow(num) {
+    return num < 10 ? num + 1 : null;
+  }
+
+  getTileLeft(num) {
+    return num > 0 ? num - 1 : null;
+  }
+
+  getTileRight(num) {
+    return num < 10 ? num + 1 : null;
+  }
+
+  getShortestShipFactor() {
+    /*another Ace up our sleeves, but we need to keep an array of ships stored on the 
+    gameboard */
   }
 }
 
