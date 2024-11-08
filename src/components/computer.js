@@ -14,7 +14,7 @@ class Computer {
   getAlgorithm() {
     if (this.difficulty === "easy") {
       //victory through randomness
-      return;
+      return this.easyAlgorithm; //return a callback
     } else if (this.difficulty === "normal") {
       /* easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
       

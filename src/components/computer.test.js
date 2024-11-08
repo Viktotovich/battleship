@@ -36,8 +36,9 @@ let coordinatesObjTest = {
 
 test("Easy algorithm tries again if it hits a spot that is taken", () => {
   testEnemy.gameboard.placeShip(chineseFishBoat, coordinatesObjTest);
+  easyCTest.getAlgorithm();
   for (let i = 0; i < 40; i++) {
-    let attackResponce = easyCTest.easyAlgorithm();
+    let attackResponce = easyCTest.algorithm();
     expect(attackResponce.attack).toBe("success");
   }
 });
