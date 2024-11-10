@@ -82,6 +82,8 @@ class Computer {
     */
     let [x, y] = lastHitCoordinates;
     let newCordinates = [x, y]; // do something here to check up down
+
+    //this is what is blowing up, no cordinates - I went to work and forgot
     let attackResponce = this.playerObj.opponent.gameboard.receiveAttack();
 
     /*Pseudo-code for trailing data, put initiallyHitCords, lastHitCords, and the rest 
@@ -105,22 +107,6 @@ class Computer {
     return attackResponce;
   }
 
-  getTileAbove(num) {
-    return num > 0 ? num - 1 : null;
-  }
-
-  getTileBelow(num) {
-    return num < 10 ? num + 1 : null;
-  }
-
-  getTileLeft(num) {
-    return num > 0 ? num - 1 : null;
-  }
-
-  getTileRight(num) {
-    return num < 10 ? num + 1 : null;
-  }
-
   /* We can't use this feasibly TO TRAIL, as at times trailing with this leads to worst case scenario of having to fire 8 shots to get to a square occupied:
                           null
                           null 
@@ -137,6 +123,31 @@ class Computer {
   getShortestShipFactor() {
     /*another Ace up our sleeves, but we need to keep an array of ships stored on the 
     gameboard */
+  }
+}
+
+class Trailing {
+  constructor(trailedCords) {
+    this.trailing = true;
+    this.trailedCords = trailedCords;
+    this.trailingData = [];
+    this.shipDestroyed = false;
+  }
+
+  getTileAbove(num) {
+    return num > 0 ? num - 1 : null;
+  }
+
+  getTileBelow(num) {
+    return num < 10 ? num + 1 : null;
+  }
+
+  getTileLeft(num) {
+    return num > 0 ? num - 1 : null;
+  }
+
+  getTileRight(num) {
+    return num < 10 ? num + 1 : null;
   }
 }
 
