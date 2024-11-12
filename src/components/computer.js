@@ -4,9 +4,7 @@ class Computer {
     this.playerObj = playerObj;
     //send back a callback
     this.algorithm = this.getAlgorithm();
-    this.trailing = false;
-    this.trailedCords = null;
-    this.trailingData = null;
+    this.trailObject = null;
   }
 
   play() {
@@ -65,8 +63,7 @@ class Computer {
       return this.trailShot(cords);
     } else if (attackResponce.message === "sunk") {
       //if ship sunk, quit trail mode
-      this.trailing = false;
-      this.trailedCords = null;
+      this.trailObject = null;
       return this.algorithm();
     } else {
       //if a miss - return the response for other funcs to handle
@@ -80,11 +77,15 @@ class Computer {
     x changes twice, stays same twice. Change is +/- 1 x
     y changes twice, stays same twice. Change is +/- 1 y
     */
-    let [x, y] = lastHitCoordinates;
-    let newCordinates = [x, y]; // do something here to check up down
+
+    const trailObject = new Trailing(lastHitCoordinates);
+    this.trailObject = trailObject;
+
+    const trailCords = this.trailObject.findTrail();
 
     //this is what is blowing up, no cordinates - I went to work and forgot
-    let attackResponce = this.playerObj.opponent.gameboard.receiveAttack();
+    let attackResponce =
+      this.playerObj.opponent.gameboard.receiveAttack(trailCords);
 
     /*Pseudo-code for trailing data, put initiallyHitCords, lastHitCords, and the rest 
     of the information inside that object. Including trailing = true || false. This is 
@@ -131,7 +132,7 @@ class Trailing {
     this.trailing = true;
     this.trailedCords = trailedCords;
     this.trailingData = [];
-    this.shipDestroyed = false;
+    this.direction = null;
   }
 
   getTileAbove(num) {
@@ -148,6 +149,11 @@ class Trailing {
 
   getTileRight(num) {
     return num < 10 ? num + 1 : null;
+  }
+
+  findTrail() {
+    //if left or right hit = trailing horizontal. If up or down == trail up or down
+    return; //up down left right
   }
 }
 
