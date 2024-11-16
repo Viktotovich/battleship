@@ -34,6 +34,7 @@ let coordinatesObjTest = {
   shipDirection: "horizontal",
 };
 
+/* Will sometimes fail due to trailing algorithm being weak */
 test("Easy algorithm tries again if it hits a spot that is taken", () => {
   testEnemy.gameboard.placeShip(chineseFishBoat, coordinatesObjTest);
   easyCTest.getAlgorithm();
@@ -45,7 +46,7 @@ test("Easy algorithm tries again if it hits a spot that is taken", () => {
 
 test("We correctly get the tile above", () => {
   //fake trailShot to create a trailObject
-  easyCTest.trailShot([9, 1]);
+  easyCTest.trailShot([6, 1]);
 
   expect(easyCTest.trailObject.getTileAbove(0)).toBe(null);
   expect(easyCTest.trailObject.getTileAbove(1)).toBe(0);

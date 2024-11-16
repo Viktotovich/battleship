@@ -136,6 +136,7 @@ class Trailing {
   }
 
   getTileAbove(num) {
+    console.log(num);
     return num > 0 ? num - 1 : null;
   }
 
@@ -153,7 +154,8 @@ class Trailing {
 
   findTrail() {
     //if left or right hit = trailing horizontal. If up or down == trail up or down
-    return; //up down left right
+    return this.trailedCords; //up down left right CHANGE
+    //Pasha Yebasha this is the problem, nothing is returned TODO returning arr to pass tests
   }
 }
 
