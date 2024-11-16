@@ -76,7 +76,9 @@ class Gameboard {
 
   receiveAttack(attackCordinates) {
     if (!Array.isArray(attackCordinates)) {
-      throw new Error("Something somewhere blew up");
+      throw new Error(
+        `Something somewhere blew up. Error type: ${attackCordinates}`
+      );
     }
 
     let [x, y] = attackCordinates;

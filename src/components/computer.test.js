@@ -44,25 +44,28 @@ test("Easy algorithm tries again if it hits a spot that is taken", () => {
 });
 
 test("We correctly get the tile above", () => {
-  expect(easyCTest.getTileAbove(0)).toBe(null);
-  expect(easyCTest.getTileAbove(1)).toBe(0);
-  expect(easyCTest.getTileAbove(9)).toBe(8);
+  //fake trailShot to create a trailObject
+  easyCTest.trailShot([9, 1]);
+
+  expect(easyCTest.trailObject.getTileAbove(0)).toBe(null);
+  expect(easyCTest.trailObject.getTileAbove(1)).toBe(0);
+  expect(easyCTest.trailObject.getTileAbove(9)).toBe(8);
 });
 
 test("We correctly get the tile below", () => {
-  expect(easyCTest.getTileBelow(0)).toBe(1);
-  expect(easyCTest.getTileBelow(10)).toBe(null);
-  expect(easyCTest.getTileBelow(9)).toBe(10);
+  expect(easyCTest.trailObject.getTileBelow(0)).toBe(1);
+  expect(easyCTest.trailObject.getTileBelow(10)).toBe(null);
+  expect(easyCTest.trailObject.getTileBelow(9)).toBe(10);
 });
 
 test("We correctly get tile to the left", () => {
-  expect(easyCTest.getTileLeft(1)).toBe(0);
-  expect(easyCTest.getTileLeft(0)).toBe(null);
-  expect(easyCTest.getTileLeft(10)).toBe(9);
+  expect(easyCTest.trailObject.getTileLeft(1)).toBe(0);
+  expect(easyCTest.trailObject.getTileLeft(0)).toBe(null);
+  expect(easyCTest.trailObject.getTileLeft(10)).toBe(9);
 });
 
 test("We correctly get tile to the right", () => {
-  expect(easyCTest.getTileRight(1)).toBe(2);
-  expect(easyCTest.getTileRight(0)).toBe(1);
-  expect(easyCTest.getTileRight(10)).toBe(null);
+  expect(easyCTest.trailObject.getTileRight(1)).toBe(2);
+  expect(easyCTest.trailObject.getTileRight(0)).toBe(1);
+  expect(easyCTest.trailObject.getTileRight(10)).toBe(null);
 });
