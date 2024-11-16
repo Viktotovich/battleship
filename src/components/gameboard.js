@@ -7,6 +7,7 @@ class Gameboard {
     this.board = this.createBoard();
     this.missedShots = [];
     this.shipCount = 0;
+    this.ships = [];
   }
 
   createBoard() {
@@ -37,6 +38,8 @@ class Gameboard {
     placementData.forEach((tile) => {
       tile.addShip(ship);
     });
+
+    this.ships.push(ship);
 
     this.shipCount += 1;
   }
@@ -122,6 +125,10 @@ class Gameboard {
 
   isEmpty() {
     return this.shipCount === 0 ? true : false;
+  }
+
+  shortestShip() {
+    return this.board();
   }
 }
 

@@ -70,3 +70,13 @@ test("We correctly get tile to the right", () => {
   expect(easyCTest.trailObject.getTileRight(0)).toBe(1);
   expect(easyCTest.trailObject.getTileRight(10)).toBe(null);
 });
+
+test("We correctly get the shortest enemy ship factor", () => {
+  expect(easyCTest.getShortestShipFactor()).toBe(3);
+});
+
+test("The while loop doesnt cause infinite callbacks", () => {
+  //manually kill the ship
+  easyCTest.playerObj.opponent.gameboard.ships[0].health = 0;
+  expect(easyCTest.getShortestShipFactor()).toBe(3);
+});

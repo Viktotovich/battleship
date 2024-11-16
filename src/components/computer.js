@@ -122,8 +122,19 @@ class Computer {
   Possible untested solution: get half of ship factor. However, this algorithm might be redundant except for random targeting. 
   */
   getShortestShipFactor() {
-    /*another Ace up our sleeves, but we need to keep an array of ships stored on the 
-    gameboard */
+    let opponentShips = this.playerObj.opponent.gameboard.ships;
+    let sortedShips = opponentShips.sort((a, b) => a.health - b.health);
+    let i = 0;
+
+    while (sortedShips[i].health && sortedShips[i].health === 0) {
+      i++;
+
+      if (i > 5) {
+        return;
+      }
+    }
+
+    return sortedShips[i].length;
   }
 }
 
@@ -136,7 +147,6 @@ class Trailing {
   }
 
   getTileAbove(num) {
-    console.log(num);
     return num > 0 ? num - 1 : null;
   }
 

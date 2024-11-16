@@ -72,6 +72,14 @@ test("The ship gets destroyed, and the death is recorded", () => {
   expect(testGameboard.shipCount).toBe(0);
 });
 
+//ships are stored correctly
+test("Ships are stored correctly", () => {
+  expect(testGameboard.ships).not.toBe(undefined);
+  expect(testGameboard.ships).not.toBe(null);
+  expect(testGameboard.ships.length).not.toBe(0);
+  expect(testGameboard.ships.length).toBe(1);
+});
+
 //this method can be called after an attack
 test("Correctly reports that it is empty and all ships are sunk", () => {
   expect(testGameboard.isEmpty()).toBe(true);
