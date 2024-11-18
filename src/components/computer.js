@@ -63,27 +63,13 @@ class Computer {
       return trailingAlgorithm.initiate(cords);
     } else if (attackResponce.message === "sunk") {
       //if ship sunk, quit trail mode
-      trailingAlgorithm.reset();
+      trailingAlgorithm.stop();
       return this.algorithm();
     } else {
       //if a miss - return the response for other funcs to handle
       return attackResponce;
     }
   }
-
-  /* We can't use this feasibly TO TRAIL, as at times trailing with this leads to worst case scenario of having to fire 8 shots to get to a square occupied:
-                          null
-                          null 
-  null - null - let's say we hit here - ship - null - null 
-                          null
-                          null
-
-  If we use the shortest ship factor, worst case is that we will have to go up left 
-  down right 2 squares from the hit, and then again up down left right (hit) - which 
-  takes 8 hits. 
-
-  Possible untested solution: get half of ship factor. However, this algorithm might be redundant except for random targeting. 
-  */
 
   //of the opponent
   getShortestShipFactor() {
