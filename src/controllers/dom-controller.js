@@ -49,6 +49,7 @@ const domController = {
     shipDetailsContainer.classList.add("ship-details-container");
     shipContainer.classList.add("ship-container");
     shipContainer.setAttribute("id", shipName);
+    shipContainer.setAttribute("draggable", "true"); //follow up on this idea
     shipNameDisplay.setAttribute("class", "ship-name-display");
 
     return shipDetailsContainer;

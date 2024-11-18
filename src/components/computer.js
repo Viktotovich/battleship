@@ -145,6 +145,7 @@ class Computer {
   }
 }
 
+//TODO: improve dis
 class Trailing {
   constructor(trailedCords) {
     this.trailing = true;
