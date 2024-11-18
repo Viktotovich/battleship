@@ -5,7 +5,6 @@
 
 const trailingAlgorithm = {
   trailedCords: null,
-  direction: null,
   trailing: true,
   trailingData: [],
   actionList: [],
@@ -49,7 +48,6 @@ const trailingAlgorithm = {
   },
   stop: function () {
     this.trailedCords = null;
-    this.direction = null;
     this.trailing = false;
     this.trailedData = [];
     this.createActionList();
