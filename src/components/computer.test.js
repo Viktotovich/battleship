@@ -44,39 +44,8 @@ test("Easy algorithm tries again if it hits a spot that is taken", () => {
   }
 });
 
-test("We correctly get the tile above", () => {
-  //fake trailShot to create a trailObject
-  easyCTest.trailShot([6, 1]);
-
-  expect(easyCTest.trailObject.getTileAbove(0)).toBe(null);
-  expect(easyCTest.trailObject.getTileAbove(1)).toBe(0);
-  expect(easyCTest.trailObject.getTileAbove(9)).toBe(8);
-});
-
-test("We correctly get the tile below", () => {
-  expect(easyCTest.trailObject.getTileBelow(0)).toBe(1);
-  expect(easyCTest.trailObject.getTileBelow(10)).toBe(null);
-  expect(easyCTest.trailObject.getTileBelow(9)).toBe(10);
-});
-
-test("We correctly get tile to the left", () => {
-  expect(easyCTest.trailObject.getTileLeft(1)).toBe(0);
-  expect(easyCTest.trailObject.getTileLeft(0)).toBe(null);
-  expect(easyCTest.trailObject.getTileLeft(10)).toBe(9);
-});
-
-test("We correctly get tile to the right", () => {
-  expect(easyCTest.trailObject.getTileRight(1)).toBe(2);
-  expect(easyCTest.trailObject.getTileRight(0)).toBe(1);
-  expect(easyCTest.trailObject.getTileRight(10)).toBe(null);
-});
-
 test("We correctly get the shortest enemy ship factor", () => {
   expect(easyCTest.getShortestShipFactor()).toBe(3);
 });
 
-test("The while loop doesnt cause infinite callbacks", () => {
-  //manually kill the ship
-  //test if that ship is still counted
-  //don't worry if there are no ships left, as that is a gameOver condition
-});
+//Trailing algorithm removed because it's no long an integral part of computer
