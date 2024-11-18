@@ -1,8 +1,3 @@
-/* Refer to notebook, simple algorithm:
-    x changes twice, stays same twice. Change is +/- 1 x
-    y changes twice, stays same twice. Change is +/- 1 y
-*/
-
 const trailingAlgorithm = {
   trailedCords: null,
   trailing: true,
@@ -27,7 +22,7 @@ const trailingAlgorithm = {
     return randomPossibleIndex;
   },
   continueTrailing: function () {
-    //check already hit angles
+    return this.randomizeAction();
   },
   getTileAbove: function (num) {
     return num > 0 ? num - 1 : null;

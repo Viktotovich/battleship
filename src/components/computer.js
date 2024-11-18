@@ -21,6 +21,7 @@ class Computer {
     if (this.difficulty === "easy") {
       //victory through randomness
       return this.easyAlgorithm; //return a callback
+      //return easyAlgorithm.getRandomCord
     } else if (this.difficulty === "normal") {
       /* easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
       
@@ -39,7 +40,8 @@ class Computer {
     }
   }
 
-  easyAlgorithm() {
+  /* TODO: Disect this and make it it's own module
+    easyAlgorithm() {
     let x = Math.round(Math.random() * 9);
     let y = Math.round(Math.random() * 9);
 
@@ -49,7 +51,7 @@ class Computer {
     ]);
 
     return this.unpackResponce(attackResponce, [x, y]);
-  }
+  } */
 
   unpackResponce(attackResponce, cords) {
     //if you tried to hit an already hit tile, call the algorithm again
@@ -64,7 +66,7 @@ class Computer {
     } else if (attackResponce.message === "sunk") {
       //if ship sunk, quit trail mode
       trailingAlgorithm.stop();
-      return this.algorithm();
+      return this.algorithm(); // we might need to return the success message too
     } else {
       //if a miss - return the response for other funcs to handle
       return attackResponce;
