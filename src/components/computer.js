@@ -121,20 +121,27 @@ class Computer {
 
   Possible untested solution: get half of ship factor. However, this algorithm might be redundant except for random targeting. 
   */
+
+  //of the opponent
   getShortestShipFactor() {
-    let opponentShips = this.playerObj.opponent.gameboard.ships;
-    let sortedShips = opponentShips.sort((a, b) => a.health - b.health);
-    let i = 0;
-
-    while (sortedShips[i].health && sortedShips[i].health === 0) {
-      i++;
-
-      if (i > 5) {
-        return;
-      }
+    //very verbose, but look how it explains itself
+    if (this.playerObj.opponent.gameboard.isEmpty()) {
+      return 0;
     }
 
-    return sortedShips[i].length;
+    let opponentShips = this.playerObj.opponent.gameboard.ships;
+
+    let shipsAlive = [];
+
+    opponentShips.forEach((ship) => {
+      if (!ship.isSunk()) {
+        shipsAlive.push(ship);
+      }
+    });
+
+    let sortedShips = shipsAlive.sort((a, b) => a.health - b.health);
+    console.log(sortedShips);
+    return sortedShips[0].length;
   }
 }
 
