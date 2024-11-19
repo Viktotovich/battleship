@@ -1,12 +1,16 @@
 const trailingAlgorithm = {
   trailedCords: null,
+  initialHit: null,
   trailing: false,
   trailingData: [],
-  actionList: [],
+  actionList: [], //typescript called this the never type, wtf? TODO
   initiate: function (cords) {
     this.trailedCords = cords;
+    this.initialHit = cords;
     this.trailing = true;
-    return; //I forgot what we wanted to return, but we need to return something important. Inspect previous implementation to understand
+    this.trailingData.push(cords);
+
+    return;
   },
   createActionList: function () {
     this.actionList.push(
@@ -20,22 +24,27 @@ const trailingAlgorithm = {
     let factor = this.actionList.length;
     let randomNumber = Math.round(Math.random * 10);
     let randomPossibleIndex = randomNumber % factor;
-    return randomPossibleIndex;
+    let action = this.actionList[randomPossibleIndex];
+    this.actionList.splice(randomPossibleIndex, 1);
+
+    return action;
   },
   continueTrailing: function () {
-    return this.randomizeAction();
+    let [x, y] = this.trailedCords;
+    let action = this.randomizeAction();
+    return action(x, y);
   },
-  getTileAbove: function (num) {
-    return num > 0 ? num - 1 : null;
+  getTileAbove: function (x, y) {
+    return y > 0 ? [x, y - 1] : null;
   },
-  getTileBelow: function (num) {
-    return num < 10 ? num + 1 : null;
+  getTileBelow: function (x, y) {
+    return y < 10 ? [x, y + 1] : null;
   },
-  getTileLeft: function (num) {
-    return num > 0 ? num - 1 : null;
+  getTileLeft: function (x, y) {
+    return x > 0 ? [x - 1, y] : null;
   },
-  getTileRight: function (num) {
-    return num < 10 ? num + 1 : null;
+  getTileRight: function (x, y) {
+    return x < 10 ? [x + 1, y] : null;
   },
   findTrail: function () {
     //if left or right hit = trailing horizontal. If up or down == trail up or down
@@ -44,6 +53,7 @@ const trailingAlgorithm = {
   },
   stop: function () {
     this.trailedCords = null;
+    this.initialHit = null;
     this.trailing = false;
     this.trailedData = [];
     this.createActionList();
