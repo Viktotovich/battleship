@@ -55,7 +55,8 @@ const trailingAlgorithm = {
     this.trailedCords = null;
     this.initialHit = null;
     this.trailing = false;
-    this.trailedData = [];
+    this.trailingData = [];
+    this.actionList = [];
     this.createActionList();
   },
 };
