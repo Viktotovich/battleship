@@ -13,12 +13,6 @@ test("imports correctly", () => {
   expect(easyCTest.playerObj.name).toBe("Mr BotEvil");
 });
 
-//it will have to be a good mock since the only way to test is by having another player
-test.skip("Easy algorithm makes a play that attacks the enemy ship", () => {
-  let attackResponce = easyCTest.easyAlgorithm();
-  expect(attackResponce.attack).toBe("success");
-});
-
 //to test the algorithm, we need a boat
 const chineseFishBoat = {
   health: 3,
@@ -39,7 +33,7 @@ test("Easy algorithm tries again if it hits a spot that is taken", () => {
   testEnemy.gameboard.placeShip(chineseFishBoat, coordinatesObjTest);
   easyCTest.getAlgorithm();
   for (let i = 0; i < 40; i++) {
-    let attackResponce = easyCTest.algorithm();
+    let attackResponce = easyCTest.play();
     expect(attackResponce.attack).toBe("success");
   }
 });
@@ -48,4 +42,8 @@ test("We correctly get the shortest enemy ship factor", () => {
   expect(easyCTest.getShortestShipFactor()).toBe(3);
 });
 
+test("Computer plays", () => {
+  let attackResponce = easyCTest.play();
+  expect(attackResponce.attack).toBe("success");
+});
 //Trailing algorithm removed because it's no long an integral part of computer

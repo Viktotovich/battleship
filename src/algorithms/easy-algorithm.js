@@ -5,6 +5,9 @@ const easyAlgorithm = {
 
     return [x, y];
   },
+  play: function () {
+    return easyAlgorithm.getRandomCord();
+  },
 };
 
 export { easyAlgorithm };

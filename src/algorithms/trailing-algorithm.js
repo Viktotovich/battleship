@@ -1,10 +1,11 @@
 const trailingAlgorithm = {
   trailedCords: null,
-  trailing: true,
+  trailing: false,
   trailingData: [],
   actionList: [],
   initiate: function (cords) {
     this.trailedCords = cords;
+    this.trailing = true;
     return; //I forgot what we wanted to return, but we need to return something important. Inspect previous implementation to understand
   },
   createActionList: function () {

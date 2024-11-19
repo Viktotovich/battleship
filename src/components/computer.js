@@ -1,3 +1,4 @@
+import { easyAlgorithm } from "../algorithms/easy-algorithm";
 import { trailingAlgorithm } from "../algorithms/trailing-algorithm";
 
 class Computer {
@@ -12,7 +13,13 @@ class Computer {
     if (trailingAlgorithm.trailing === true) {
       return trailingAlgorithm.continueTrailing();
     } else {
-      return this.algorithm();
+      let [x, y] = this.algorithm();
+      let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
+        x,
+        y,
+      ]);
+
+      return this.unpackResponce(attackResponce, [x, y]);
     }
   }
 
@@ -20,7 +27,7 @@ class Computer {
   getAlgorithm() {
     if (this.difficulty === "easy") {
       //victory through randomness
-      return this.easyAlgorithm; //return a callback
+      return easyAlgorithm.play; //return a callback
       //return easyAlgorithm.getRandomCord
     } else if (this.difficulty === "normal") {
       /* easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
