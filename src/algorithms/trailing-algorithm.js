@@ -9,8 +9,9 @@ const trailingAlgorithm = {
     this.initialHit = cords;
     this.trailing = true;
     this.trailingData.push(cords);
+    this.createActionList();
 
-    return;
+    return this.continueTrailing(); //THIS IS WHAT BROKE THINGS
   },
   createActionList: function () {
     this.actionList.push(
@@ -22,7 +23,7 @@ const trailingAlgorithm = {
   },
   randomizeAction: function () {
     let factor = this.actionList.length;
-    let randomNumber = Math.round(Math.random * 10);
+    let randomNumber = Math.round(Math.random() * 10);
     let randomPossibleIndex = randomNumber % factor;
     let action = this.actionList[randomPossibleIndex];
     this.actionList.splice(randomPossibleIndex, 1);
@@ -57,7 +58,6 @@ const trailingAlgorithm = {
     this.trailing = false;
     this.trailingData = [];
     this.actionList = [];
-    this.createActionList();
   },
 };
 
