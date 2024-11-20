@@ -11,7 +11,13 @@ class Computer {
 
   play() {
     if (trailingAlgorithm.trailing === true) {
-      return trailingAlgorithm.continueTrailing();
+      let [x, y] = trailingAlgorithm.continueTrailing();
+      let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
+        x,
+        y,
+      ]);
+
+      return this.attackResponce(attackResponce);
     } else {
       let [x, y] = this.algorithm();
       let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([

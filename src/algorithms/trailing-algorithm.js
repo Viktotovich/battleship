@@ -11,7 +11,7 @@ const trailingAlgorithm = {
     this.trailingData.push(cords);
     this.createActionList();
 
-    return this.continueTrailing(); //THIS IS WHAT BROKE THINGS
+    return this.continueTrailing();
   },
   createActionList: function () {
     this.actionList.push(
@@ -62,3 +62,8 @@ const trailingAlgorithm = {
 };
 
 export { trailingAlgorithm };
+
+/* questions to be answered with the algorithm: 
+  1 - What happens if we are chasing the correct trail?
+
+*/
