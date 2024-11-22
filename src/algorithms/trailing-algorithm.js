@@ -33,7 +33,11 @@ const trailingAlgorithm = {
   continueTrailing: function () {
     let [x, y] = this.trailedCords;
     let action = this.randomizeAction();
-    return action(x, y);
+
+    return {
+      newCords: action(x, y),
+      lastAction: action,
+    };
   },
   getTileAbove: function (x, y) {
     return y > 0 ? [x, y - 1] : null;
@@ -46,11 +50,6 @@ const trailingAlgorithm = {
   },
   getTileRight: function (x, y) {
     return x < 10 ? [x + 1, y] : null;
-  },
-  findTrail: function () {
-    //if left or right hit = trailing horizontal. If up or down == trail up or down
-    //if not a success, pop actionList
-    return this.trailedCords; //up down left right CHANGE
   },
   stop: function () {
     this.trailedCords = null;

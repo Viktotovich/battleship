@@ -11,13 +11,15 @@ class Computer {
 
   play() {
     if (trailingAlgorithm.trailing === true) {
-      let [x, y] = trailingAlgorithm.continueTrailing();
+      let { newCords, lastAction } = trailingAlgorithm.continueTrailing();
+      let [x, y] = newCords;
+
       let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
         x,
         y,
       ]);
 
-      return this.attackResponce(attackResponce);
+      return this.unpackTrail(attackResponce, newCords, lastAction);
     } else {
       let [x, y] = this.algorithm();
       let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
@@ -53,19 +55,6 @@ class Computer {
     }
   }
 
-  /* TODO: Disect this and make it it's own module
-    easyAlgorithm() {
-    let x = Math.round(Math.random() * 9);
-    let y = Math.round(Math.random() * 9);
-
-    let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
-      x,
-      y,
-    ]);
-
-    return this.unpackResponce(attackResponce, [x, y]);
-  } */
-
   unpackResponce(attackResponce, cords) {
     //if you tried to hit an already hit tile, call the algorithm again
     if (
@@ -82,6 +71,27 @@ class Computer {
       return this.algorithm(); // we might need to return the success message too
     } else {
       //if a miss - return the response for other funcs to handle
+      return attackResponce;
+    }
+  }
+
+  unpackTrail(attackResponce, cords, lastAction) {
+    if (
+      attackResponce.message === "repetition" &&
+      this.playerObj.opponent.gameboard.shipCount !== 0
+    ) {
+      return this.play();
+    } else if (attackResponce.message === "bullseye") {
+      //keep up if succesful
+      trailingAlgorithm.actionList.unshift(lastAction);
+      trailingAlgorithm.trailedCords = cords; //keep trailing the succesful cords
+      return this.play();
+    } else if (attackResponce.message === "sunk") {
+      trailingAlgorithm.stop();
+      return this.algorithm();
+    } else {
+      //if trailing a cord, reset
+      trailingAlgorithm.trailedCords = trailingAlgorithm.trailedData[0];
       return attackResponce;
     }
   }
