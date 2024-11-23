@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { gameController } from "../controllers/game-controller";
 import { domController } from "../controllers/dom-controller";
+import { dragHandler } from "../controllers/drag-n-drop";
 
 const mainGameDisplayController = {
   contentSpace: document.querySelector("#content"),
@@ -17,6 +18,8 @@ const mainGameDisplayController = {
     this.contentSpace.appendChild(title);
     this.contentSpace.appendChild(p1BoardDOM);
     this.contentSpace.appendChild(shipPlacer);
+
+    dragHandler.initiate();
   },
   unpackDisplay: function (gameInfo) {
     let p1Board = gameInfo.player1.gameboard.board;

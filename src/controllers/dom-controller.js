@@ -8,6 +8,7 @@ const domController = {
     for (let i = 0; i < 100; i++) {
       let boardPiece = document.createElement("div");
       boardPiece.classList.add("board-piece");
+      boardPiece.classList.add("available");
       domArr.push(boardPiece);
       boardContainer.appendChild(boardPiece);
     }
@@ -49,7 +50,7 @@ const domController = {
     shipDetailsContainer.classList.add("ship-details-container");
     shipContainer.classList.add("ship-container");
     shipContainer.setAttribute("id", shipName);
-    shipContainer.setAttribute("draggable", "true"); //follow up on this idea
+    shipContainer.setAttribute("draggable", "true");
     shipNameDisplay.setAttribute("class", "ship-name-display");
 
     return shipDetailsContainer;

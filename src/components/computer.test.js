@@ -44,7 +44,6 @@ test("We correctly get the shortest enemy ship factor", () => {
 
 test("Computer plays", () => {
   let attackResponce = easyCTest.play();
-  console.log(attackResponce);
   expect(attackResponce.attack).toBe("success");
 });
 //Trailing algorithm removed because it's no long an integral part of computer

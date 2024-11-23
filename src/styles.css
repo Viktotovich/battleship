@@ -43,3 +43,12 @@
   padding: 1.2rem;
   background-color: beige;
 }
+
+/* Drag UI control */
+.available.dragover {
+  background-color: rgb(215, 249, 215);
+}
+
+.unavailable.dragover {
+  background-color: pink;
+}
