@@ -10,6 +10,8 @@ x elements to the right
 4 - If the index is x % 9 === 0, (aka end of board, no more right), then fill slots on 
 the left if possible
 */
+import { domController } from "./dom-controller";
+
 const dragHandler = {
   playerBoardDOM: [],
   currentPlayerDOM: null,
@@ -17,9 +19,15 @@ const dragHandler = {
   initiate: function (playerBoard) {
     this.currentPlayerDOM = playerBoard;
     this.playerBoardDOM.push(playerBoard);
-    this.enableDrag(playerBoard);
+
+    let shipLength = this.getShipLength();
+    this.enableDrag(playerBoard, shipLength);
   },
-  enableDrag: function (board) {
+  getShipLength: function () {
+    return domController.currentShipContainer.childNodes[0].childNodes[1]
+      .children.length;
+  },
+  enableDrag: function (board, shipLength) {
     board.forEach((tile) => {
       tile.addEventListener("dragover", (e) => {
         e.preventDefault();

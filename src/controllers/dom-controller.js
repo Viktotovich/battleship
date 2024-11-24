@@ -1,6 +1,7 @@
 const domController = {
   playerDOMs: [],
   placeableShips: [],
+  currentShipContainer: null,
   createDOMBoard: function () {
     const boardContainer = document.createElement("div");
     let domArr = [];
@@ -42,9 +43,22 @@ const domController = {
     });
 
     currentShip.appendChild(this.placeableShips[0]);
+
+    this.makeShipDraggable(this.placeableShips[0]);
     this.placeableShips.splice(0, 1);
+    this.currentShipContainer = currentShip;
 
     return container;
+  },
+  showShipToPlace: function () {
+    if (this.placeableShips.length === 0) {
+      //stop, since no ships
+    }
+
+    //otherwise, use currentShipContainer to place another ship inside
+  },
+  makeShipDraggable: function (shipDOM) {
+    shipDOM.setAttribute("draggable", "true");
   },
   unpackShip: function (health, shipName) {
     const shipDetailsContainer = document.createElement("div");
@@ -66,7 +80,6 @@ const domController = {
     shipDetailsContainer.classList.add("ship-details-container");
     shipContainer.classList.add("ship-container");
     shipContainer.setAttribute("id", shipName);
-    shipContainer.setAttribute("draggable", "true");
     shipNameDisplay.setAttribute("class", "ship-name-display");
 
     return shipDetailsContainer;
