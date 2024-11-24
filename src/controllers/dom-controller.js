@@ -20,13 +20,29 @@ const domController = {
   },
   unpackShips: function (shipsObj) {
     const container = document.createElement("div");
+    const shipToPlaceContainer = document.createElement("div");
+    const placeShipText = document.createElement("div");
+    const currentShip = document.createElement("div");
+
     container.classList.add("place-ships-menu");
+    shipToPlaceContainer.classList.add("ships-to-place-container");
+    currentShip.classList.add("current-ship");
+    placeShipText.classList.add("place-ship-text");
+
+    placeShipText.textContent = "Currently placing:";
+
+    container.appendChild(shipToPlaceContainer);
+    shipToPlaceContainer.appendChild(placeShipText);
+    shipToPlaceContainer.appendChild(currentShip);
 
     Object.keys(shipsObj).forEach((key) => {
       let shipDOM = this.unpackShip(shipsObj[key].health, key);
       container.appendChild(shipDOM);
       this.placeableShips.push(shipDOM);
     });
+
+    currentShip.appendChild(this.placeableShips[0]);
+    this.placeableShips.splice(0, 1);
 
     return container;
   },

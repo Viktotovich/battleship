@@ -28,6 +28,22 @@
   align-items: center;
 }
 
+.ships-to-place-container {
+  grid-area: 1 / 1 / -1 / -1 !important;
+  justify-self: center;
+  align-self: center;
+  border: pink 1px double;
+  padding: 1rem 3rem;
+}
+
+.current-ship {
+  margin-top: 1rem;
+}
+
+.place-ship-text {
+  text-decoration: underline;
+}
+
 .ship {
   margin: 0.2rem;
 }

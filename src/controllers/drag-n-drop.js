@@ -12,11 +12,34 @@ the left if possible
 */
 const dragHandler = {
   playerBoardDOM: [],
+  currentPlayerDOM: null,
+  angle: "horizontal",
   initiate: function (playerBoard) {
+    this.currentPlayerDOM = playerBoard;
     this.playerBoardDOM.push(playerBoard);
     this.enableDrag(playerBoard);
   },
   enableDrag: function (board) {
-    board;
+    board.forEach((tile) => {
+      tile.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.target.classList.add("dragover");
+      });
+
+      tile.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        e.target.classList.remove("dragover");
+      });
+
+      tile.addEventListener("drop", dragHandler.placeShip);
+    });
+  },
+  placeShip: function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("available")) {
+      //
+    }
   },
 };
+
+export { dragHandler };

@@ -9,17 +9,17 @@ const mainGameDisplayController = {
     let gameInfoObj = gameController.unpackGame(gameObj);
     let { p1Board, p2Board } = this.unpackDisplay(gameInfoObj); //Non-dom actual board
 
-    let p1BoardDOM = domController.createDOMBoard();
-    let p2BoardDOM = domController.createDOMBoard();
+    let p1BoardDOMContainer = domController.createDOMBoard();
+    let p2BoardDOMContainer = domController.createDOMBoard();
 
     let title = this.createTitle(gameInfoObj.player1.name);
     let shipPlacer = this.createShipPlacer();
 
     this.contentSpace.appendChild(title);
-    this.contentSpace.appendChild(p1BoardDOM);
+    this.contentSpace.appendChild(p1BoardDOMContainer);
     this.contentSpace.appendChild(shipPlacer);
 
-    unpackGameType(gameInfoObj, p1BoardDOM, p2BoardDOM);
+    unpackGameType(gameInfoObj, domController.playerDOMs);
   },
   unpackDisplay: function (gameInfo) {
     let p1Board = gameInfo.player1.gameboard.board;
@@ -51,11 +51,13 @@ const mainGameDisplayController = {
   },
 };
 
-function unpackGameType(gameInfo, p1BoardDOM, p2BoardDOM) {
+function unpackGameType(gameInfo, playerDOMs) {
+  let [p1BoardDOM, p2BoardDOM] = playerDOMs;
+
   if (gameInfo.gameType === "pvc") {
     pvcGameController.initiate(p1BoardDOM);
   } else {
-    pvpGameController.initiate(p1BoardDOM);
+    pvpGameController.initiate(p1BoardDOM, p2BoardDOM);
   }
 }
 
