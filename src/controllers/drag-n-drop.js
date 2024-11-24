@@ -53,7 +53,7 @@ const dragHandler = {
     let startCord = Number(dragHandler.getCord(e.target));
 
     for (let i = 0; i < shipLength; i++) {
-      if (dragHandler.isValid(startCord + i) === true) {
+      if (dragHandler.isValid(startCord + i, i) === true) {
         dragHandler.cordArray.push(dragHandler.currentPlayerDOM[startCord + i]);
         dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
       } else {
@@ -70,8 +70,8 @@ const dragHandler = {
 
     e.target.classList.add("dragover");
   },
-  isValid(index) {
-    if (index % 10 === 9) {
+  isValid(index, startPoint) {
+    if (index % 10 === 0 && startPoint !== 0) {
       return false; //in other words, if any of the squares cross the border
     } else {
       return true;
