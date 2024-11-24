@@ -7,7 +7,7 @@ const mainGameDisplayController = {
   contentSpace: document.querySelector("#content"),
   initiate: function (gameObj) {
     let gameInfoObj = gameController.unpackGame(gameObj);
-    let { p1Board, p2Board } = this.unpackDisplay(gameInfoObj);
+    let { p1Board, p2Board } = this.unpackDisplay(gameInfoObj); //Non-dom actual board
 
     let p1BoardDOM = domController.createDOMBoard();
     let p2BoardDOM = domController.createDOMBoard();
@@ -19,7 +19,7 @@ const mainGameDisplayController = {
     this.contentSpace.appendChild(p1BoardDOM);
     this.contentSpace.appendChild(shipPlacer);
 
-    dragHandler.initiate();
+    unpackGameType(gameInfoObj, p1BoardDOM, p2BoardDOM);
   },
   unpackDisplay: function (gameInfo) {
     let p1Board = gameInfo.player1.gameboard.board;
@@ -51,6 +51,28 @@ const mainGameDisplayController = {
   },
 };
 
+function unpackGameType(gameInfo, p1BoardDOM, p2BoardDOM) {
+  if (gameInfo.gameType === "pvc") {
+    pvcGameController.initiate(p1BoardDOM);
+  } else {
+    pvpGameController.initiate(p1BoardDOM);
+  }
+}
+
+const pvcGameController = {
+  initiate: function (p1Board) {
+    //enable drag
+    dragHandler.initiate(p1Board);
+  },
+};
+
+const pvpGameController = {
+  initiate: function (p1Board, p2Board) {
+    //enable first drag
+    dragHandler.initiate(p1Board);
+  },
+};
+
 /* Next Steps:
     You can completely forget about all other pages, and only touch them when doing frontend. We get everything we will ever need out of them with the gameObj. 
     
@@ -64,10 +86,8 @@ game flow.
 What does that mean?
 
 Well, if we take, say the board itself. The first part would ask Player1 to create the 
-board - and then just relay the board information to the gameController to finalize the 
-Player's board. It does not create the board, nor deals with the fact that users 
+board - and then just relay the board information to the gameController to finalize the Player's board. It does not create the board, nor deals with the fact that users 
 interact with the board - it does not care. main-game.js is a page responsible for 
-making sure that whatever page information comes its way is displayed, and that the next 
-step after submission is to display the Player 2 make-a-board page / or just start the game (if against a bot)*/
+making sure that whatever page information comes its way is displayed, and that the next step after submission is to display the Player 2 make-a-board page / or just start the game (if against a bot)*/
 
 export { mainGameDisplayController };

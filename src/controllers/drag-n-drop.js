@@ -1,40 +1,22 @@
+/*eslint-disable*/
+/*
+Let's do something unhinged and insane, let's store all the DOM references here as well.
+
+Pseudocode:
+1 - Hover over an element and get it's index
+2 - Get the ship length that you are placing
+3 - Highlight not only the element you are hovering over, but also the next
+x elements to the right
+4 - If the index is x % 9 === 0, (aka end of board, no more right), then fill slots on 
+the left if possible
+*/
 const dragHandler = {
-  draggedDOM: null,
-  initiate: function () {
-    let unselectedTiles = document.querySelectorAll(".available");
-    this.enableDrag(unselectedTiles);
+  playerBoardDOM: [],
+  initiate: function (playerBoard) {
+    this.playerBoardDOM.push(playerBoard);
+    this.enableDrag(playerBoard);
   },
-  enableDrag: function (tiles) {
-    tiles.forEach((tile) => {
-      tile.addEventListener("dragenter", (event) => {
-        event.preventDefault();
-        if (event.target.classList.contains("available")) {
-          event.target.classList.add("dragover");
-          dragHandler.draggedDOM = event.target;
-        }
-      });
-
-      tile.addEventListener("dragover", (event) => {
-        event.preventDefault();
-      });
-
-      tile.addEventListener("dragleave", (event) => {
-        if (event.target.classList.contains("available")) {
-          event.target.classList.remove("dragover");
-        }
-      });
-    });
-  },
-  enableErrorDisplay: function (tiles) {
-    tiles.forEach((tile) => {
-      //show red if spot taken
-    });
+  enableDrag: function (board) {
+    board;
   },
 };
-
-export { dragHandler };
-/*
-Mid way through working on drag-n-drop I have realized something. 
-Doing just a drag and drop won't work, I need to "send" ships to 
-drag-n-drop or maintain some sort of order, and remove the ships from display
-one by one*/

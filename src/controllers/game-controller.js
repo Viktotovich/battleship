@@ -1,5 +1,6 @@
 import { Player } from "../components/players";
 import { Computer } from "../components/computer";
+
 /* Almost like classes, but just easier to visualize. Data can get overwhelming, 
 this helps keep track of everything - this is my standard pattern for other projects*/
 
@@ -30,7 +31,7 @@ const gameController = {
     return {
       player1,
       player2: player2.playerObj,
-      computerControls: player2,
+      computerControls: player2, //wow wtf, this idea is kinda rad
       gametype: "pvc",
     };
   },
