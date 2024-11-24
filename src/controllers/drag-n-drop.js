@@ -16,6 +16,7 @@ const dragHandler = {
   playerBoardDOM: [],
   currentPlayerDOM: null,
   angle: "horizontal",
+  cordArray: [],
   initiate: function (playerBoard) {
     this.currentPlayerDOM = playerBoard;
     this.playerBoardDOM.push(playerBoard);
@@ -32,7 +33,9 @@ const dragHandler = {
 
       tile.addEventListener("dragleave", (e) => {
         e.preventDefault();
-        e.target.classList.remove("dragover");
+        this.cordArray.forEach((cord) => {
+          cord.classList.remove("dragover");
+        });
       });
 
       tile.addEventListener("drop", dragHandler.placeShip);
@@ -48,18 +51,17 @@ const dragHandler = {
     e.preventDefault();
     let shipLength = dragHandler.getShipLength();
     let startCord = Number(dragHandler.getCord(e.target));
-    let cordArray = [];
 
     for (let i = 0; i < shipLength; i++) {
       if (dragHandler.isValid(startCord + i) === true) {
-        cordArray.push(dragHandler.currentPlayerDOM[startCord + i]);
+        dragHandler.cordArray.push(dragHandler.currentPlayerDOM[startCord + i]);
         dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
       } else {
-        cordArray.forEach((cord) => {
+        dragHandler.cordArray.forEach((cord) => {
           cord.classList.add("invalid");
         });
         return setTimeout(() => {
-          cordArray.forEach((cord) => {
+          dragHandler.cordArray.forEach((cord) => {
             cord.classList.remove("invalid");
           });
         }, 700);
@@ -67,12 +69,6 @@ const dragHandler = {
     }
 
     e.target.classList.add("dragover");
-
-    setTimeout(() => {
-      cordArray.forEach((cord) => {
-        cord.classList.remove("dragover");
-      });
-    }, 500);
   },
   isValid(index) {
     if (index % 10 === 9) {
