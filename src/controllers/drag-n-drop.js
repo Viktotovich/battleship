@@ -48,15 +48,38 @@ const dragHandler = {
     e.preventDefault();
     let shipLength = dragHandler.getShipLength();
     let startCord = Number(dragHandler.getCord(e.target));
-    let cordArray = [startCord];
+    let cordArray = [];
 
     for (let i = 0; i < shipLength; i++) {
-      cordArray.push(startCord + 1);
-      console.log(startCord + i);
-      dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
+      if (dragHandler.isValid(startCord + i) === true) {
+        cordArray.push(dragHandler.currentPlayerDOM[startCord + i]);
+        dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
+      } else {
+        cordArray.forEach((cord) => {
+          cord.classList.add("invalid");
+        });
+        return setTimeout(() => {
+          cordArray.forEach((cord) => {
+            cord.classList.remove("invalid");
+          });
+        }, 700);
+      }
     }
 
     e.target.classList.add("dragover");
+
+    setTimeout(() => {
+      cordArray.forEach((cord) => {
+        cord.classList.remove("dragover");
+      });
+    }, 500);
+  },
+  isValid(index) {
+    if (index % 10 === 9) {
+      return false; //in other words, if any of the squares cross the border
+    } else {
+      return true;
+    }
   },
   getCord: function (tile) {
     let cord = tile.getAttribute("id");

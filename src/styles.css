@@ -68,3 +68,7 @@
 .unavailable.dragover {
   background-color: pink;
 }
+
+.invalid.dragover {
+  background-color: red;
+}
