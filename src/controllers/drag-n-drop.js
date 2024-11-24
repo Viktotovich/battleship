@@ -20,19 +20,15 @@ const dragHandler = {
     this.currentPlayerDOM = playerBoard;
     this.playerBoardDOM.push(playerBoard);
 
-    let shipLength = this.getShipLength();
-    this.enableDrag(playerBoard, shipLength);
+    this.enableDrag(playerBoard);
   },
   getShipLength: function () {
     return domController.currentShipContainer.childNodes[0].childNodes[1]
       .children.length;
   },
-  enableDrag: function (board, shipLength) {
+  enableDrag: function (board) {
     board.forEach((tile) => {
-      tile.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        e.target.classList.add("dragover");
-      });
+      tile.addEventListener("dragover", dragHandler.highlightPlacement);
 
       tile.addEventListener("dragleave", (e) => {
         e.preventDefault();
@@ -47,6 +43,24 @@ const dragHandler = {
     if (e.target.classList.contains("available")) {
       //
     }
+  },
+  highlightPlacement: function (e) {
+    e.preventDefault();
+    let shipLength = dragHandler.getShipLength();
+    let startCord = Number(dragHandler.getCord(e.target));
+    let cordArray = [startCord];
+
+    for (let i = 0; i < shipLength; i++) {
+      cordArray.push(startCord + 1);
+      console.log(startCord + i);
+      dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
+    }
+
+    e.target.classList.add("dragover");
+  },
+  getCord: function (tile) {
+    let cord = tile.getAttribute("id");
+    return cord.substring(5);
   },
 };
 

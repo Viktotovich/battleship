@@ -10,6 +10,7 @@ const domController = {
       let boardPiece = document.createElement("div");
       boardPiece.classList.add("board-piece");
       boardPiece.classList.add("available");
+      boardPiece.setAttribute("id", `cord-${i}`);
       domArr.push(boardPiece);
       boardContainer.appendChild(boardPiece);
     }
