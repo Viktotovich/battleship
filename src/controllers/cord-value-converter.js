@@ -9,7 +9,6 @@ const cordConverter = {
     if (index < 10) {
       return [index, 0]; //height is 0, less than 10
     } else {
-      console.log(index);
       return [index[1], index[0]];
     }
   },

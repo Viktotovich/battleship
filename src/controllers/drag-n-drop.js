@@ -44,15 +44,36 @@ const dragHandler = {
   },
   placeShip: function (e) {
     e.preventDefault();
-    if (e.target.classList.contains("available")) {
-      /* Pseudocode:
-      1 - Get the cordinate of every tile that the ship is in, 
-      1.5 - Check if valid
-      2 - Store that in some object, preferrably mixed with the ship object
-      3 - Place another ship for placement
-      */
-      let cord = dragHandler.getCord(e.target);
-      console.log(cordConverter.unpackCords(cord));
+    if (dragHandler.isAvailable() === true) {
+      let startCord = dragHandler.getCord(e.target);
+      let lastDOM = dragHandler.cordArray.at(-1);
+      let endCord = dragHandler.getCord(lastDOM);
+
+      dragHandler.cordArray = []; //garbage collection
+
+      //export these
+      let [xStart, yStart] = cordConverter.unpackCords(startCord);
+      let [xEnd, yEnd] = cordConverter.unpackCords(endCord);
+      let shipDirection = dragHandler.angle;
+
+      dragHandler.markDOMTaken(startCord, endCord);
+    }
+  },
+  isAvailable: function () {
+    let cordList = dragHandler.cordArray;
+    let areValid = true;
+    cordList.forEach((cord) => {
+      if (!cord.classList.contains("available")) {
+        areValid = false;
+      }
+    });
+    return areValid;
+  },
+  markDOMTaken: function (startCord, endCord) {
+    for (startCord; startCord <= endCord; startCord++) {
+      dragHandler.currentPlayerDOM[startCord].classList.remove("available");
+      dragHandler.currentPlayerDOM[startCord].classList.add("ship-present");
+      dragHandler.currentPlayerDOM[startCord].classList.add("unavailable");
     }
   },
   highlightPlacement: function (e) {
@@ -62,7 +83,8 @@ const dragHandler = {
 
     for (let i = 0; i < shipLength; i++) {
       if (dragHandler.isValid(startCord + i, i) === true) {
-        dragHandler.cordArray.push(dragHandler.currentPlayerDOM[startCord + i]);
+        //this implementation does not allow cordArray to reach 10k or more items.
+        dragHandler.cordArray[i] = dragHandler.currentPlayerDOM[startCord + i];
         dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
       } else {
         dragHandler.cordArray.forEach((cord) => {

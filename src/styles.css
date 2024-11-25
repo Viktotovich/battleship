@@ -72,3 +72,7 @@
 .invalid.dragover {
   background-color: red;
 }
+
+.board-piece.ship-present {
+  background-color: blue;
+}
