@@ -85,10 +85,6 @@ const domController = {
 
     return shipDetailsContainer;
   },
-  cordsToDOMIndex: function (x, y) {
-    let index = x + y * 10;
-    return index;
-  },
 };
 
 export { domController };

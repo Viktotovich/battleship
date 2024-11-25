@@ -11,6 +11,7 @@ x elements to the right
 the left if possible
 */
 import { domController } from "./dom-controller";
+import { cordConverter } from "./cord-value-converter";
 
 const dragHandler = {
   playerBoardDOM: [],
@@ -44,7 +45,14 @@ const dragHandler = {
   placeShip: function (e) {
     e.preventDefault();
     if (e.target.classList.contains("available")) {
-      //
+      /* Pseudocode:
+      1 - Get the cordinate of every tile that the ship is in, 
+      1.5 - Check if valid
+      2 - Store that in some object, preferrably mixed with the ship object
+      3 - Place another ship for placement
+      */
+      let cord = dragHandler.getCord(e.target);
+      console.log(cordConverter.unpackCords(cord));
     }
   },
   highlightPlacement: function (e) {
@@ -64,7 +72,7 @@ const dragHandler = {
           dragHandler.cordArray.forEach((cord) => {
             cord.classList.remove("invalid");
           });
-        }, 700);
+        }, 2000);
       }
     }
 
@@ -82,5 +90,15 @@ const dragHandler = {
     return cord.substring(5);
   },
 };
+
+/* 
+Morning Vlad, hopefully you are more than ready - pickup from the fact that we need to 
+make the ships placeable. Horizontal and vertical placement options aren't as 
+important, but can be low mental effort problems to solve.
+
+Another thing to note which is kinda interesting, is that we need to add "reset" 
+button for the boards, swap direction, and custom cords adding.
+
+Either way, just send the board placement data to some object after every ship*/
 
 export { dragHandler };
