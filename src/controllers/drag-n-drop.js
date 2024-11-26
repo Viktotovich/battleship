@@ -46,18 +46,28 @@ const dragHandler = {
     e.preventDefault();
     if (dragHandler.isAvailable() === true) {
       let startCord = dragHandler.getCord(e.target);
-      let lastDOM = dragHandler.cordArray.at(-1);
+      let lastDOM = dragHandler.cordArray.at(-1); //trouble-maker TODO
       let endCord = dragHandler.getCord(lastDOM);
 
-      dragHandler.cordArray = []; //garbage collection
-
-      //export these
-      let [xStart, yStart] = cordConverter.unpackCords(startCord);
-      let [xEnd, yEnd] = cordConverter.unpackCords(endCord);
-      let shipDirection = dragHandler.angle;
-
       dragHandler.markDOMTaken(startCord, endCord);
+      //sometimes last DOM is absurdly high cord. Also ship placements are allowed even if they are less than the length of the ship
     }
+  },
+  createShipCordObject: function (startCord, endCord) {
+    dragHandler.cordArray = []; //garbage collection
+
+    //export these
+    let [xStart, yStart] = cordConverter.unpackCords(startCord);
+    let [xEnd, yEnd] = cordConverter.unpackCords(endCord);
+    let shipDirection = dragHandler.angle;
+
+    return {
+      xStart,
+      xEnd,
+      yStart,
+      yEnd,
+      shipDirection,
+    }; //this is exactly like in the gameboard.test
   },
   isAvailable: function () {
     let cordList = dragHandler.cordArray;
@@ -112,15 +122,5 @@ const dragHandler = {
     return cord.substring(5);
   },
 };
-
-/* 
-Morning Vlad, hopefully you are more than ready - pickup from the fact that we need to 
-make the ships placeable. Horizontal and vertical placement options aren't as 
-important, but can be low mental effort problems to solve.
-
-Another thing to note which is kinda interesting, is that we need to add "reset" 
-button for the boards, swap direction, and custom cords adding.
-
-Either way, just send the board placement data to some object after every ship*/
 
 export { dragHandler };
