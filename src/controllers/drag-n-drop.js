@@ -44,13 +44,31 @@ const dragHandler = {
   },
   placeShip: function (e) {
     e.preventDefault();
+    let startCord = Number(dragHandler.getCord(e.target));
+    let shipLength = dragHandler.getShipLength();
+
+    for (let i = 0; i < shipLength; i++) {
+      if (dragHandler.isValid(startCord + i, i)) {
+        dragHandler.cordArray[i] = dragHandler.currentPlayerDOM[startCord + i];
+      } else {
+        dragHandler.cordArray.forEach((cord) => {
+          cord.classList.add("invalid");
+        });
+        return setTimeout(() => {
+          dragHandler.cordArray.forEach((cord) => {
+            cord.classList.remove("invalid");
+          });
+        }, 2000);
+      }
+    }
+
     if (dragHandler.isAvailable() === true) {
-      let startCord = dragHandler.getCord(e.target);
       let lastDOM = dragHandler.cordArray.at(-1); //trouble-maker TODO
       let endCord = dragHandler.getCord(lastDOM);
 
       dragHandler.markDOMTaken(startCord, endCord);
-      //sometimes last DOM is absurdly high cord. Also ship placements are allowed even if they are less than the length of the ship
+      dragHandler.createShipCordObject(startCord, endCord);
+      //sometimes last DOM is absurdly high cord. Also ship placements are allowed even if they are less than the length of the ship - fixed
     }
   },
   createShipCordObject: function (startCord, endCord) {
@@ -93,7 +111,6 @@ const dragHandler = {
 
     for (let i = 0; i < shipLength; i++) {
       if (dragHandler.isValid(startCord + i, i) === true) {
-        //this implementation does not allow cordArray to reach 10k or more items.
         dragHandler.cordArray[i] = dragHandler.currentPlayerDOM[startCord + i];
         dragHandler.currentPlayerDOM[startCord + i].classList.add("dragover");
       } else {
