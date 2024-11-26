@@ -18,6 +18,7 @@ const dragHandler = {
   currentPlayerDOM: null,
   angle: "horizontal",
   cordArray: [],
+  placedCords: [],
   initiate: function (playerBoard) {
     this.currentPlayerDOM = playerBoard;
     this.playerBoardDOM.push(playerBoard);
@@ -67,7 +68,10 @@ const dragHandler = {
       let endCord = dragHandler.getCord(lastDOM);
 
       dragHandler.markDOMTaken(startCord, endCord);
-      dragHandler.createShipCordObject(startCord, endCord);
+      dragHandler.placedCords.push(
+        dragHandler.createShipCordObject(startCord, endCord)
+      );
+      dragHandler.placeNextShip();
       //sometimes last DOM is absurdly high cord. Also ship placements are allowed even if they are less than the length of the ship - fixed
     }
   },
@@ -137,6 +141,13 @@ const dragHandler = {
   getCord: function (tile) {
     let cord = tile.getAttribute("id");
     return cord.substring(5);
+  },
+  placeNextShip: function () {
+    if (domController.getNextShip === null) {
+      //resolve a promise
+    }
+
+    domController.getNextShip();
   },
 };
 

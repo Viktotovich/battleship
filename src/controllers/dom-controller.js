@@ -51,12 +51,26 @@ const domController = {
 
     return container;
   },
-  showShipToPlace: function () {
+  getNextShip: function () {
+    let currentShip = document.querySelector(".current-ship");
+    currentShip.textContent = "";
+
     if (this.placeableShips.length === 0) {
-      //stop, since no ships
+      let shipToPlaceContainer = document.querySelector(
+        ".ships-to-place-container"
+      );
+      shipToPlaceContainer.textContent = "Ready?";
+      //add a ready button
+      return null;
     }
 
     //otherwise, use currentShipContainer to place another ship inside
+
+    currentShip.appendChild(this.placeableShips[0]);
+
+    this.makeShipDraggable(this.placeableShips[0]);
+    this.placeableShips.splice(0, 1);
+    this.currentShipContainer = currentShip;
   },
   makeShipDraggable: function (shipDOM) {
     shipDOM.setAttribute("draggable", "true");
