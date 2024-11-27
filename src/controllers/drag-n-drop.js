@@ -73,7 +73,6 @@ const dragHandler = {
         dragHandler.createShipCordObject(startCord, endCord)
       );
       dragHandler.placeNextShip();
-      //sometimes last DOM is absurdly high cord. Also ship placements are allowed even if they are less than the length of the ship - fixed
     }
   },
   createShipCordObject: function (startCord, endCord) {
