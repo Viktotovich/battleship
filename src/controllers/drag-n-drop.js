@@ -12,6 +12,7 @@ the left if possible
 */
 import { domController } from "./dom-controller";
 import { cordConverter } from "./cord-value-converter";
+import { gameInfo } from "../pages/main-game";
 
 const dragHandler = {
   playerBoardDOM: [],
@@ -143,8 +144,8 @@ const dragHandler = {
     return cord.substring(5);
   },
   placeNextShip: function () {
-    if (domController.getNextShip === null) {
-      //resolve a promise
+    if (domController.getShipCount() === 0) {
+      gameInfo.continue(dragHandler.placedCords);
     }
 
     domController.getNextShip();

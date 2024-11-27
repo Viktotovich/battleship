@@ -55,16 +55,37 @@ function unpackGameType(gameInfo, playerDOMs) {
   let [p1BoardDOM, p2BoardDOM] = playerDOMs;
 
   if (gameInfo.gameType === "pvc") {
+    gameInfo.set(gameInfo.gameType);
     pvcGameController.initiate(p1BoardDOM);
   } else {
     pvpGameController.initiate(p1BoardDOM, p2BoardDOM);
   }
 }
 
+const gameInfo = {
+  gameType: null,
+  p1Ships: null,
+  p2Ships: null,
+  set: function (gameType) {
+    this.gameType = gameType;
+  },
+  continue: function (placedCords) {
+    console.log(placedCords);
+    if (this.gameType === "pvc") {
+      pvcGameController.autoPlace();
+    } else {
+      pvpGameController.nextPlayer();
+    }
+  },
+};
+
 const pvcGameController = {
   initiate: function (p1Board) {
     //enable drag
     dragHandler.initiate(p1Board);
+  },
+  autoPlace: function () {
+    //
   },
 };
 
@@ -73,6 +94,7 @@ const pvpGameController = {
     //enable first drag
     dragHandler.initiate(p1Board);
   },
+  nextPlayer: function () {},
 };
 
 /* Next Steps:
@@ -92,4 +114,4 @@ board - and then just relay the board information to the gameController to final
 interact with the board - it does not care. main-game.js is a page responsible for 
 making sure that whatever page information comes its way is displayed, and that the next step after submission is to display the Player 2 make-a-board page / or just start the game (if against a bot)*/
 
-export { mainGameDisplayController };
+export { mainGameDisplayController, gameInfo };

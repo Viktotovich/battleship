@@ -60,8 +60,7 @@ const domController = {
         ".ships-to-place-container"
       );
       shipToPlaceContainer.textContent = "Ready?";
-      //add a ready button
-      return null;
+      return; //button, and append it;
     }
 
     //otherwise, use currentShipContainer to place another ship inside
@@ -71,6 +70,9 @@ const domController = {
     this.makeShipDraggable(this.placeableShips[0]);
     this.placeableShips.splice(0, 1);
     this.currentShipContainer = currentShip;
+  },
+  getShipCount: function () {
+    return this.placeableShips.length;
   },
   makeShipDraggable: function (shipDOM) {
     shipDOM.setAttribute("draggable", "true");
