@@ -76,3 +76,9 @@
 .board-piece.ship-present {
   background-color: blue;
 }
+
+/* This has no point, it's just for practicing transforms and transitions */
+.ship-present:hover {
+  transform: perspective(400px) scale(1.11) rotateY(20deg);
+  transition: all linear 0.1s;
+}

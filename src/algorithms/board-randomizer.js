@@ -16,6 +16,7 @@ const boardRandomizer = {
   initiate: function (ships) {
     //randomize for both horizontal and vertical placements
     ships.forEach((ship) => {
+      console.log(ship);
       boardRandomizer.generateDirectionToken(); //make an object
     });
   },
