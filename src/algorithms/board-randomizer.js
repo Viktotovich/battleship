@@ -1,22 +1,11 @@
-/*
-  From my notebook: 
-  -------------------------------------------------------------------------------------
-    Fun fact - we dont even need the board at all.
-    10x10 board - 100 tiles. Choose a random number an go ship.length tiles
-    down/right. Check if those tiles are taken, if they are - generate another point.
-
-    Basically, any point 0-99. 99 will not have space to the rifht, so 0-95 is a 
-    slightly inaccruate, but an effective version.
-        Reasoning: Longest ship is 5 tiles long. I'ts inaccurate because after placing 
-        the 5 tile ship, there are smaller ships that could fit into that little space.
-  ------------------------------------------------------------------------------------
-*/
+/*inshallah I never have to touch this shit again, I dont even want to think about 
+how it works. */
 
 const boardRandomizer = {
   cordArr: [],
   initiate: function (ships) {
     boardRandomizer.assignRandomDirection(ships);
-    console.log(this.cordArr);
+    return boardRandomizer.cordArr;
   },
   assignRandomDirection: function (ships) {
     Object.keys(ships).forEach((key) => {

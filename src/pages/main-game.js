@@ -66,16 +66,19 @@ function unpackGameType(gameObj, playerDOMs) {
 
 const gameInfo = {
   gameType: null,
-  p1Ships: null,
-  p2Ships: null,
+  p1Cords: null,
+  p2Cords: null,
   set: function (gameType) {
     this.gameType = gameType;
   },
   continue: function (placedCords) {
-    console.log(placedCords);
     if (gameInfo.gameType === "pvc") {
-      pvcGameController.autoPlace();
+      gameInfo.p1Cords = placedCords;
+      gameInfo.p2Cords = pvcGameController.autoPlace();
+      console.log(gameController.players);
     } else {
+      //TODO after PVC
+      gameInfo.p1Cords = placedCords;
       pvpGameController.nextPlayer();
     }
   },
@@ -88,7 +91,8 @@ const pvcGameController = {
   },
   autoPlace: function () {
     let ships = gameController.getShips();
-    boardRandomizer.initiate(ships);
+    let cordArr = boardRandomizer.initiate(ships);
+    return cordArr;
   },
 };
 
