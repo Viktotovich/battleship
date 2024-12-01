@@ -14,11 +14,11 @@
 
 const boardRandomizer = {
   initiate: function (ships) {
-    //randomize for both horizontal and vertical placements
-    console.log("here");
-    ships.forEach((ship) => {
-      console.log(ship);
-      boardRandomizer.generateDirectionToken(); //make an object
+    boardRandomizer.assignRandomDirection(ships);
+  },
+  assignRandomDirection: function (ships) {
+    Object.keys(ships).forEach((key) => {
+      ships[key].direction = boardRandomizer.generateDirectionToken();
     });
   },
   generateDirectionToken() {

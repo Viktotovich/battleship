@@ -52,13 +52,14 @@ const mainGameDisplayController = {
   },
 };
 
-function unpackGameType(gameInfo, playerDOMs) {
+function unpackGameType(gameObj, playerDOMs) {
   let [p1BoardDOM, p2BoardDOM] = playerDOMs;
-
-  if (gameInfo.gameType === "pvc") {
-    gameInfo.set(gameInfo.gameType);
+  if (gameObj.gameType === "pvc") {
+    gameInfo.set(gameObj.gametype);
     pvcGameController.initiate(p1BoardDOM);
   } else {
+    gameInfo.set(gameObj.gametype);
+
     pvpGameController.initiate(p1BoardDOM, p2BoardDOM);
   }
 }
