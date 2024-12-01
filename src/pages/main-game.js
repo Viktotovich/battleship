@@ -72,6 +72,7 @@ const gameInfo = {
     this.gameType = gameType;
   },
   continue: function (placedCords) {
+    console.log(placedCords);
     if (gameInfo.gameType === "pvc") {
       pvcGameController.autoPlace();
     } else {

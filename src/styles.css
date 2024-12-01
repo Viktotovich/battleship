@@ -74,7 +74,7 @@
 }
 
 .board-piece.ship-present {
-  background-color: blue;
+  background-color: rgb(186, 186, 211);
 }
 
 /* This has no point, it's just for practicing transforms and transitions */
