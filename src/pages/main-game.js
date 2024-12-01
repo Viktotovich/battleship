@@ -8,7 +8,7 @@ const mainGameDisplayController = {
   contentSpace: document.querySelector("#content"),
   initiate: function (gameObj) {
     let gameInfoObj = gameController.unpackGame(gameObj);
-    let { p1Board, p2Board } = this.unpackDisplay(gameInfoObj); //Non-dom actual board
+    //TODO: continue here as this has all the necessary controls
 
     let p1BoardDOMContainer = domController.createDOMBoard();
     let p2BoardDOMContainer = domController.createDOMBoard();
@@ -20,16 +20,11 @@ const mainGameDisplayController = {
     this.contentSpace.appendChild(p1BoardDOMContainer);
     this.contentSpace.appendChild(shipPlacer);
 
+    //this.showBoard()
     unpackGameType(gameInfoObj, domController.playerDOMs);
   },
-  unpackDisplay: function (gameInfo) {
-    let p1Board = gameInfo.player1.gameboard.board;
-    let p2Board = gameInfo.player2.gameboard.board;
-
-    return {
-      p1Board,
-      p2Board,
-    };
+  showBoard: function () {
+    //modularize initiate
   },
   createTitle(pName) {
     const titleContainer = document.createElement("div");
