@@ -1,6 +1,11 @@
+import { boardRandomizer } from "../algorithms/board-randomizer";
+import { gameController } from "./game-controller";
+import { cordConverter } from "./cord-value-converter";
+
 const domController = {
   playerDOMs: [],
   placeableShips: [],
+  playerPlacing: 0,
   currentShipContainer: null,
   createDOMBoard: function () {
     const boardContainer = document.createElement("div");
@@ -105,6 +110,81 @@ const domController = {
     shipNameDisplay.setAttribute("class", "ship-name-display");
 
     return shipDetailsContainer;
+  },
+  //easier problem to focus on for now, by brain if fried
+  createButtonToolkit: function () {
+    const toolKitContainer = document.createElement("div");
+    const randomizeButton = document.createElement("button");
+    const resetButton = document.createElement("button");
+
+    toolKitContainer.classList.add("toolkit-container");
+    toolKitContainer.appendChild(randomizeButton);
+    toolKitContainer.appendChild(resetButton);
+
+    randomizeButton.textContent = "Randomize Selection";
+    resetButton.textContent = "Reset Selection";
+
+    randomizeButton.classList.add("randomize-button");
+    resetButton.classList.add("reset-button");
+
+    //the board MUST BE CLEAN AND RESET
+    randomizeButton.addEventListener(
+      "click",
+      toolkitController.randomizePlacement
+    );
+
+    return toolKitContainer;
+  },
+};
+
+const toolkitController = {
+  shipCord: [],
+  randomizePlacement: function () {
+    toolkitController.resetPlacement();
+
+    let ships = gameController.getShips();
+    let cordArr = boardRandomizer.initiate(ships);
+    toolkitController.unpackCords(cordArr);
+  },
+  unpackCords: function (cordArr) {
+    cordArr.forEach((cord) => {
+      let { xStart, xEnd, yStart, yEnd } = cord;
+
+      if (cord.direction === "horizontal") {
+        for (let i = xStart; i < xEnd; i++) {
+          let fCord = cordConverter.flattenCords(i, yStart);
+          toolkitController.shipCord.push(fCord);
+          toolkitController.placeShip();
+        }
+      } else {
+        for (let i = yStart; i < yEnd; i++) {
+          let fCord = cordConverter.flattenCords(xStart, i);
+          toolkitController.shipCord.push(fCord);
+          toolkitController.placeShip();
+        }
+      }
+    });
+  },
+  placeShip: function () {
+    let startCord = toolkitController.shipCord[0];
+    let endIndex = toolkitController.shipCord.length - 1;
+    let endCord = toolkitController.shipCord[endIndex];
+
+    toolkitController.markDOMTaken(startCord, endCord);
+    toolkitController.shipCord = [];
+  },
+  markDOMTaken: function (startCord, endCord) {
+    let playerPlacing = domController.playerPlacing;
+    let playerDOM = domController.playerDOMs[playerPlacing];
+
+    for (startCord; startCord <= endCord; startCord++) {
+      playerDOM[startCord].classList.remove("available");
+      playerDOM[startCord].classList.add("ship-present");
+      playerDOM[startCord].classList.add("unavailable");
+    }
+  },
+  resetPlacement: function () {
+    //put showBoard method here, so we can reset board
   },
 };
 
