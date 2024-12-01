@@ -82,3 +82,20 @@
   transform: perspective(400px) scale(1.11) rotateY(20deg);
   transition: all linear 0.1s;
 }
+
+.confirm-selection {
+  align-self: center;
+  justify-self: center;
+  background-color: rgb(188, 230, 188);
+  border: 1px solid gainsboro;
+  cursor: pointer;
+  padding: 0.5rem 3rem;
+  border-radius: 5px;
+}
+
+.confirm-selection:hover {
+  background-color: rgb(33, 39, 33);
+  transform: scale(1.02);
+  color: rgb(252, 252, 252);
+  transition: all 0.5s;
+}

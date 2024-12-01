@@ -2,6 +2,7 @@
 import { gameController } from "../controllers/game-controller";
 import { domController } from "../controllers/dom-controller";
 import { dragHandler } from "../controllers/drag-n-drop";
+import { boardRandomizer } from "../algorithms/board-randomizer";
 
 const mainGameDisplayController = {
   contentSpace: document.querySelector("#content"),
@@ -70,8 +71,7 @@ const gameInfo = {
     this.gameType = gameType;
   },
   continue: function (placedCords) {
-    console.log(placedCords);
-    if (this.gameType === "pvc") {
+    if (gameInfo.gameType === "pvc") {
       pvcGameController.autoPlace();
     } else {
       pvpGameController.nextPlayer();
@@ -85,16 +85,21 @@ const pvcGameController = {
     dragHandler.initiate(p1Board);
   },
   autoPlace: function () {
-    //
+    let ships = gameController.getShips();
+    boardRandomizer.initiate(ships);
   },
 };
 
 const pvpGameController = {
+  p2Board: null,
   initiate: function (p1Board, p2Board) {
     //enable first drag
     dragHandler.initiate(p1Board);
+    this.p2Board = p2Board;
   },
-  nextPlayer: function () {},
+  nextPlayer: function () {
+    dragHandler.initiate(this.p2Board);
+  },
 };
 
 /* Next Steps:

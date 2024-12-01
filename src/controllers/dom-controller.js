@@ -59,8 +59,13 @@ const domController = {
       let shipToPlaceContainer = document.querySelector(
         ".ships-to-place-container"
       );
-      shipToPlaceContainer.textContent = "Ready?";
-      return; //button, and append it;
+      let nextButton = document.createElement("button");
+
+      nextButton.classList.add("confirm-selection");
+      nextButton.textContent = "Ready?";
+
+      shipToPlaceContainer.appendChild(nextButton);
+      return nextButton;
     }
 
     //otherwise, use currentShipContainer to place another ship inside

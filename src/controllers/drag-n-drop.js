@@ -144,10 +144,14 @@ const dragHandler = {
   },
   placeNextShip: function () {
     if (domController.getShipCount() === 0) {
-      gameInfo.continue(dragHandler.placedCords);
+      let nextButton = domController.getNextShip();
+      nextButton.addEventListener("click", dragHandler.confirmSelection);
+    } else {
+      domController.getNextShip();
     }
-
-    domController.getNextShip();
+  },
+  confirmSelection: function () {
+    gameInfo.continue(dragHandler.placedCords);
   },
 };
 

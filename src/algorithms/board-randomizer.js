@@ -15,6 +15,7 @@
 const boardRandomizer = {
   initiate: function (ships) {
     //randomize for both horizontal and vertical placements
+    console.log("here");
     ships.forEach((ship) => {
       console.log(ship);
       boardRandomizer.generateDirectionToken(); //make an object
@@ -29,6 +30,7 @@ const boardRandomizer = {
     }
   },
   generateRandomPlacement(shipObj) {
+    console.log(shipObj);
     /*
       Send the ship with the token, and add a cord to that object
     */
