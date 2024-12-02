@@ -1,9 +1,13 @@
-/*inshallah I never have to touch this shit again, I dont even want to think about 
-how it works. */
+/* 
+  Cordinates are not checked for duplicates or collisions, TODO
+*/
+
+import { Tree } from "./binary-search-tree"; //optimising look-up time to 0(n) vs O(n!)
 
 const boardRandomizer = {
-  cordArr: [],
+  cordTree: null,
   initiate: function (ships) {
+    this.cordTree = new Tree([-1]); // the only value that wont conflict with anything
     boardRandomizer.assignRandomDirection(ships);
     return boardRandomizer.cordArr;
   },
@@ -29,7 +33,6 @@ const boardRandomizer = {
     }
   },
   placeH: function (shipObj) {
-    //
     let xStart = boardRandomizer.genRX(shipObj.health);
     let yStart = Math.round(Math.random() * 9);
     let yEnd = yStart;
@@ -45,7 +48,6 @@ const boardRandomizer = {
     };
   },
   placeV: function (shipObj) {
-    //
     let yStart = boardRandomizer.genRY(shipObj.health);
     let xStart = Math.round(Math.random() * 9);
     let yEnd = yStart + shipObj.health;
@@ -62,7 +64,8 @@ const boardRandomizer = {
   },
   genRX: function (shipLength) {
     let rX = Math.round(Math.random() * 7); //lowest ship length is 2
-    if (rX + shipLength < 9) {
+    if (rX + shipLength < 9 && boardRandomizer.checkCollision(rX)) {
+      this.cordTree.insert(rX);
       return rX;
     } else {
       //if the ship exceeds the boundary, try again
@@ -71,12 +74,16 @@ const boardRandomizer = {
   },
   genRY: function (shipLength) {
     let rY = Math.round(Math.random() * 7); //lowest ship length is 2
-    if (rY + shipLength < 9) {
+    if (rY + shipLength < 9 && boardRandomizer.checkCollision(rY)) {
+      this.cordTree.insert(rY);
       return rY;
     } else {
       //if the ship exceeds the boundary, try again
       return boardRandomizer.genRY(shipLength);
     }
+  },
+  checkCollision: function (checkedCord) {
+    return this.cordTree.bstContains(checkedCord) ? true : false;
   },
 };
 
