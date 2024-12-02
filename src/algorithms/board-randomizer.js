@@ -6,6 +6,7 @@ import { Tree } from "./binary-search-tree"; //optimising look-up time to 0(n) v
 
 const boardRandomizer = {
   cordTree: null,
+  cordArr: [],
   initiate: function (ships) {
     this.cordTree = new Tree([-1]); // the only value that wont conflict with anything
     boardRandomizer.assignRandomDirection(ships);
@@ -83,7 +84,7 @@ const boardRandomizer = {
     }
   },
   checkCollision: function (checkedCord) {
-    return this.cordTree.bstContains(checkedCord) ? true : false;
+    return this.cordTree.bstContains(checkedCord) ? false : true;
   },
 };
 
