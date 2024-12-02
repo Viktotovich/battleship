@@ -3,6 +3,7 @@
 */
 
 import { Tree } from "./binary-search-tree"; //optimising look-up time to 0(n) vs O(n!)
+import { cordConverter } from "../controllers/cord-value-converter";
 
 const boardRandomizer = {
   cordTree: null,
@@ -10,6 +11,7 @@ const boardRandomizer = {
   initiate: function (ships) {
     this.cordTree = new Tree([-1]); // the only value that wont conflict with anything
     boardRandomizer.assignRandomDirection(ships);
+    console.log(boardRandomizer.cordArr);
     return boardRandomizer.cordArr;
   },
   assignRandomDirection: function (ships) {
@@ -40,6 +42,18 @@ const boardRandomizer = {
     let xEnd = xStart + shipObj.health;
     let direction = shipObj.direction;
 
+    for (let i = xStart; i < xEnd; i++) {
+      if (!this.checkCollision(i, yStart)) {
+        return this.placeH(shipObj);
+      }
+    }
+
+    //TODO: improve, I got tired
+    let flatCord = null;
+    for (let i = xStart; i < xEnd; i++) {
+      flatCord = boardRandomizer.getFlattenedCords(i, yStart);
+      boardRandomizer.cordTree.insert(flatCord);
+    }
     return {
       xStart,
       xEnd,
@@ -55,6 +69,17 @@ const boardRandomizer = {
     let xEnd = xStart;
     let direction = shipObj.direction;
 
+    for (let i = yStart; i < yEnd; i++) {
+      if (!this.checkCollision(xStart, i)) {
+        return this.placeV(shipObj);
+      }
+    }
+
+    let flatCord = null;
+    for (let i = yStart; i < yEnd; i++) {
+      flatCord = boardRandomizer.getFlattenedCords(xStart, i);
+      boardRandomizer.cordTree.insert(flatCord);
+    }
     return {
       xStart,
       xEnd,
@@ -67,51 +92,29 @@ const boardRandomizer = {
   not risk any implication / potential side effects of removing them */
   genRX: function (shipLength, factor) {
     let rX = Math.round(Math.random() * factor); //lowest ship length is 2
-    if (rX + shipLength < 9 && boardRandomizer.checkCollision(rX)) {
-      this.cordTree.insert(rX);
+    if (rX + shipLength <= 10) {
       return rX;
     } else {
       //if the ship exceeds the boundary, try again
-      return boardRandomizer.genRX(shipLength);
+      return boardRandomizer.genRX(shipLength, factor);
     }
   },
   genRY: function (shipLength, factor) {
     let rY = Math.round(Math.random() * factor); //lowest ship length is 2
-    if (rY + shipLength < 9 && boardRandomizer.checkCollision(rY)) {
-      this.cordTree.insert(rY);
+    if (rY + shipLength <= 10) {
       return rY;
     } else {
       //if the ship exceeds the boundary, try again
-      return boardRandomizer.genRY(shipLength);
+      return boardRandomizer.genRY(shipLength, factor);
     }
   },
-  checkCollision: function (checkedCord) {
-    return this.cordTree.bstContains(checkedCord) ? false : true;
+  checkCollision: function (x, y) {
+    let flatCords = this.getFlattenedCords(x, y);
+    return !this.cordTree.bstContains(flatCords);
+  },
+  getFlattenedCords: function (x, y) {
+    return cordConverter.flattenCords(x, y);
   },
 };
 
 export { boardRandomizer };
-
-/*
-  The genius of today is a dumba** of tommorow. I understand my choices now, 
-  but I will not later.
-
-  Documentation:
-
-    genRX: function (shipLength, factor) { 
-                                    ^
-            This makes genRX and genRY reusable for when ships are placed V or H
-
-    Which means we can pull this off:
-            let xStart = boardRandomizer.genRX(1, 9);
-            let yStart = boardRandomizer.genRY(1, 9);
-
-    Why? 
-      We tried Math.random(), and there was a caveat: we never actually checked 
-      one of the angles: X or Y, so in cases where we just ran boardRandomizer genX or 
-      Y, the value that was just a single digit (aka, ship was place vertically and
-      we only needed 1 cord) - we didnt actually run any checks if that value was
-      already taken
-
-    We might need to flatten cords
-*/
