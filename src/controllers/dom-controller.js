@@ -73,8 +73,6 @@ const domController = {
       return nextButton;
     }
 
-    //otherwise, use currentShipContainer to place another ship inside
-
     currentShip.appendChild(this.placeableShips[0]);
 
     this.makeShipDraggable(this.placeableShips[0]);
@@ -111,7 +109,6 @@ const domController = {
 
     return shipDetailsContainer;
   },
-  //easier problem to focus on for now, by brain if fried
   createButtonToolkit: function () {
     const toolKitContainer = document.createElement("div");
     const randomizeButton = document.createElement("button");
@@ -185,7 +182,19 @@ const toolkitController = {
   },
   resetPlacement: function () {
     //put showBoard method here, so we can reset board
+    //I have a feeling previous implementation of reset didnt work because some other arr was storing the DOM references, we'd have to reset that too - Continue here
   },
 };
+
+/* 
+TODO: 
+  1 - understand why board-randomizer's genRX (rx + shipLength <= 10) works
+  2 - make resetPlacement work
+  3 - Clear the ships to Place container after randomizeBoard calls
+  4 - disable pvp, we are not going to do that anytime soon
+  5 - disable hard algorithm, if this project seems like it wont be done by 7Dec (due to 
+  work)
+  6 - Make the ready button work, and start game!
+*/
 
 export { domController };
