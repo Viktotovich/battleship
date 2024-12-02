@@ -10,7 +10,6 @@ class Node {
 
 class Tree {
   constructor(arr) {
-    //bingo bango bongo, the dupes are gongo
     this.root = this.buildTree(arr);
   }
 
