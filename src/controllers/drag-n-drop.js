@@ -31,21 +31,7 @@ const dragHandler = {
       .children.length;
   },
   enableDrag: function (board) {
-    board.forEach((tile) => {
-      tile.addEventListener(
-        "dragover",
-        horizontalController.highlightPlacement
-      );
-
-      tile.addEventListener("dragleave", (e) => {
-        e.preventDefault();
-        this.cordArray.forEach((cord) => {
-          cord.classList.remove("dragover");
-        });
-      });
-
-      tile.addEventListener("drop", horizontalController.placeShip); //unless user toggles
-    });
+    horizontalController.initiate(board);
   },
   createShipCordObject: function (startCord, endCord) {
     dragHandler.cordArray = []; //garbage collection
@@ -89,9 +75,44 @@ const dragHandler = {
   confirmSelection: function () {
     gameInfo.continue(dragHandler.placedCords);
   },
+  disable: function () {
+    dragHandler.currentPlayerDOM.forEach((tile) => {
+      tile.removeEventListener("dragover");
+      tile.removeEventListener("dragleave");
+      tile.removeEventListener("drop");
+    });
+  },
+  toggle: function () {
+    if (dragHandler.angle === "horizontal") {
+      dragHandler.angle = "vertical";
+      dragHandler.disable();
+      verticalController.initiate(dragHandler.dragHandler.currentPlayerDOM);
+    } else {
+      dragHandler.angle = "horizontal";
+      dragHandler.disable();
+      horizontalController.initiate(dragHandler.dragHandler.currentPlayerDOM);
+    }
+  },
 };
 
 const horizontalController = {
+  initiate: function (board) {
+    board.forEach((tile) => {
+      tile.addEventListener(
+        "dragover",
+        horizontalController.highlightPlacement
+      );
+
+      tile.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        dragHandler.cordArray.forEach((cord) => {
+          cord.classList.remove("dragover");
+        });
+      });
+
+      tile.addEventListener("drop", horizontalController.placeShip); //unless user toggles
+    });
+  },
   highlightPlacement: function (e) {
     e.preventDefault();
     let shipLength = dragHandler.getShipLength();
@@ -164,6 +185,20 @@ const horizontalController = {
 };
 
 const verticalController = {
+  initiate: function (board) {
+    board.forEach((tile) => {
+      tile.addEventListener("dragover", verticalController.highlightPlacement);
+
+      tile.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        dragHandler.cordArray.forEach((cord) => {
+          cord.classList.remove("dragover");
+        });
+      });
+
+      tile.addEventListener("drop", verticalController.placeShip); //unless user toggles
+    });
+  },
   highlightPlacement: function (e) {
     e.preventDefault();
     let shipLength = dragHandler.getShipLength();
