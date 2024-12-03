@@ -1,6 +1,7 @@
 import { boardRandomizer } from "../algorithms/board-randomizer";
 import { gameController } from "./game-controller";
 import { cordConverter } from "./cord-value-converter";
+import { gameInfo } from "../pages/main-game";
 
 const domController = {
   playerDOMs: [],
@@ -130,7 +131,26 @@ const domController = {
       toolkitController.randomizePlacement
     );
 
+    randomizeButton.addEventListener("click", domController.markAllPlaced);
+
     return toolKitContainer;
+  },
+  markAllPlaced: function () {
+    let shipToPlaceContainer = document.querySelector(
+      ".ships-to-place-container"
+    );
+    let nextButton = document.createElement("button");
+
+    nextButton.classList.add("confirm-selection");
+    shipToPlaceContainer.textContent = "";
+    nextButton.textContent = "Ready?";
+
+    shipToPlaceContainer.appendChild(nextButton);
+
+    nextButton.addEventListener("click", domController.confirmSelection);
+  },
+  confirmSelection: function () {
+    gameInfo.continue(boardRandomizer.cordArr);
   },
 };
 
