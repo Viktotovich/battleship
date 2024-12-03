@@ -246,8 +246,6 @@ const verticalController = {
     let shipLength = dragHandler.getShipLength();
 
     for (let y = 0; y < shipLength; y++) {
-      console.log(y, startCord);
-      console.log(startCord + y * 10);
       if (verticalController.isValid(startCord + y * 10, y * 10)) {
         dragHandler.cordArray[y] =
           dragHandler.currentPlayerDOM[startCord + y * 10];
@@ -283,7 +281,8 @@ const verticalController = {
     }
   },
   isValid(index, startPoint) {
-    if ((index % 10 === 0 && startPoint !== 0) || index > 99) {
+    console.log(index, startPoint);
+    if (index > 99) {
       return false;
     } else {
       return true;
