@@ -246,6 +246,8 @@ const verticalController = {
     let shipLength = dragHandler.getShipLength();
 
     for (let y = 0; y < shipLength; y++) {
+      console.log(y, startCord);
+      console.log(startCord + y * 10);
       if (verticalController.isValid(startCord + y * 10, y * 10)) {
         dragHandler.cordArray[y] =
           dragHandler.currentPlayerDOM[startCord + y * 10];
@@ -274,17 +276,15 @@ const verticalController = {
   },
   markDOMTaken: function (startCord, endCord) {
     let y = startCord;
-    for (y; y <= endCord; ) {
-      dragHandler.currentPlayerDOM[y + 10].classList.remove("available");
-      dragHandler.currentPlayerDOM[y + 10].classList.add("ship-present");
-      dragHandler.currentPlayerDOM[y + 10].classList.add("unavailable");
-      y = y + 10;
+    for (y; y <= endCord; y = y + 10) {
+      dragHandler.currentPlayerDOM[y].classList.remove("available");
+      dragHandler.currentPlayerDOM[y].classList.add("ship-present");
+      dragHandler.currentPlayerDOM[y].classList.add("unavailable");
     }
   },
   isValid(index, startPoint) {
-    console.log(index, startPoint);
     if ((index % 10 === 0 && startPoint !== 0) || index > 99) {
-      return false; //in other words, if any of the squares cross the border
+      return false;
     } else {
       return true;
     }
