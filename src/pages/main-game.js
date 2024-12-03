@@ -33,12 +33,19 @@ const mainGameDisplayController = {
   createDirectionControls: function () {
     const toggleDirectionContainer = document.createElement("div");
     const toggleDirectionButton = document.createElement("button");
+    const currentDirection = document.createElement("div");
 
+    currentDirection.textContent = `Placing: ${dragHandler.angle}`;
     toggleDirectionButton.textContent = "Change placement direction";
     toggleDirectionButton.addEventListener("click", dragHandler.toggle);
+    toggleDirectionButton.addEventListener("click", () => {
+      currentDirection.textContent = `Placing: ${dragHandler.angle}`;
+    });
     toggleDirectionButton.classList.add("toggle-direction-button");
     toggleDirectionContainer.classList.add("toggle-direction-container");
+    currentDirection.classList.add("current-direction");
 
+    toggleDirectionContainer.appendChild(currentDirection);
     toggleDirectionContainer.appendChild(toggleDirectionButton);
 
     return toggleDirectionContainer;
