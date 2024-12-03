@@ -75,22 +75,35 @@ const dragHandler = {
   confirmSelection: function () {
     gameInfo.continue(dragHandler.placedCords);
   },
-  disable: function () {
+  disableV: function () {
     dragHandler.currentPlayerDOM.forEach((tile) => {
-      tile.removeEventListener("dragover");
-      tile.removeEventListener("dragleave");
-      tile.removeEventListener("drop");
+      tile.removeEventListener(
+        "dragover",
+        verticalController.highlightPlacement
+      );
+      tile.removeEventListener("dragleave", verticalController.unhighlight);
+      tile.removeEventListener("drop", verticalController.placeShip);
+    });
+  },
+  disableH: function () {
+    dragHandler.currentPlayerDOM.forEach((tile) => {
+      tile.removeEventListener(
+        "dragover",
+        horizontalController.highlightPlacement
+      );
+      tile.removeEventListener("dragleave", horizontalController.unhighlight);
+      tile.removeEventListener("drop", horizontalController.placeShip);
     });
   },
   toggle: function () {
     if (dragHandler.angle === "horizontal") {
       dragHandler.angle = "vertical";
-      dragHandler.disable();
-      verticalController.initiate(dragHandler.dragHandler.currentPlayerDOM);
+      dragHandler.disableH();
+      verticalController.initiate(dragHandler.currentPlayerDOM);
     } else {
       dragHandler.angle = "horizontal";
-      dragHandler.disable();
-      horizontalController.initiate(dragHandler.dragHandler.currentPlayerDOM);
+      dragHandler.disableV();
+      horizontalController.initiate(dragHandler.currentPlayerDOM);
     }
   },
 };
@@ -103,14 +116,15 @@ const horizontalController = {
         horizontalController.highlightPlacement
       );
 
-      tile.addEventListener("dragleave", (e) => {
-        e.preventDefault();
-        dragHandler.cordArray.forEach((cord) => {
-          cord.classList.remove("dragover");
-        });
-      });
+      tile.addEventListener("dragleave", horizontalController.unhighlight);
 
       tile.addEventListener("drop", horizontalController.placeShip); //unless user toggles
+    });
+  },
+  unhighlight: function (e) {
+    e.preventDefault();
+    dragHandler.cordArray.forEach((cord) => {
+      cord.classList.remove("dragover");
     });
   },
   highlightPlacement: function (e) {
@@ -189,14 +203,15 @@ const verticalController = {
     board.forEach((tile) => {
       tile.addEventListener("dragover", verticalController.highlightPlacement);
 
-      tile.addEventListener("dragleave", (e) => {
-        e.preventDefault();
-        dragHandler.cordArray.forEach((cord) => {
-          cord.classList.remove("dragover");
-        });
-      });
+      tile.addEventListener("dragleave", verticalController.unhighlight);
 
       tile.addEventListener("drop", verticalController.placeShip); //unless user toggles
+    });
+  },
+  unhighlight: function (e) {
+    e.preventDefault();
+    dragHandler.cordArray.forEach((cord) => {
+      cord.classList.remove("dragover");
     });
   },
   highlightPlacement: function (e) {

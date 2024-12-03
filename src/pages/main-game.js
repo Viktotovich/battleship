@@ -16,9 +16,11 @@ const mainGameDisplayController = {
     let title = this.createTitle(gameInfoObj.player1.name);
     let shipPlacer = this.createShipPlacer();
     let buttonToolkit = domController.createButtonToolkit();
+    let directionControls = this.createDirectionControls();
 
     this.contentSpace.appendChild(title);
     this.contentSpace.appendChild(p1BoardDOMContainer);
+    this.contentSpace.appendChild(directionControls);
     this.contentSpace.appendChild(buttonToolkit);
     this.contentSpace.appendChild(shipPlacer);
 
@@ -27,6 +29,19 @@ const mainGameDisplayController = {
   },
   showBoard: function () {
     //refactor initiate
+  },
+  createDirectionControls: function () {
+    const toggleDirectionContainer = document.createElement("div");
+    const toggleDirectionButton = document.createElement("button");
+
+    toggleDirectionButton.textContent = "Change placement direction";
+    toggleDirectionButton.addEventListener("click", dragHandler.toggle);
+    toggleDirectionButton.classList.add("toggle-direction-button");
+    toggleDirectionContainer.classList.add("toggle-direction-container");
+
+    toggleDirectionContainer.appendChild(toggleDirectionButton);
+
+    return toggleDirectionContainer;
   },
   createTitle(pName) {
     const titleContainer = document.createElement("div");
