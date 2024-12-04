@@ -88,12 +88,16 @@ const dragHandler = {
   toggle: function () {
     const shipContainer = document.querySelector(".ship-container");
     if (dragHandler.angle === "horizontal") {
-      shipContainer.classList.add("vertical");
+      if (shipContainer !== null) {
+        shipContainer.classList.add("vertical");
+      }
       dragHandler.angle = "vertical";
       dragHandler.disableH();
       verticalController.initiate(dragHandler.currentPlayerDOM);
     } else {
-      shipContainer.classList.remove("vertical");
+      if (shipContainer !== null) {
+        shipContainer.classList.remove("vertical");
+      }
       dragHandler.angle = "horizontal";
       dragHandler.disableV();
       horizontalController.initiate(dragHandler.currentPlayerDOM);
@@ -173,6 +177,8 @@ const horizontalController = {
         dragHandler.createShipCordObject(startCord, endCord)
       );
       dragHandler.placeNextShip();
+      dragHandler.toggle();
+      dragHandler.toggle();
     }
   },
   isValid(index, startPoint) {
@@ -263,6 +269,8 @@ const verticalController = {
         dragHandler.createShipCordObject(startCord, endCord)
       );
       dragHandler.placeNextShip();
+      dragHandler.toggle();
+      dragHandler.toggle();
     }
   },
   markDOMTaken: function (startCord, endCord) {
