@@ -92,8 +92,10 @@ const gameInfo = {
   continue: function (placedCords) {
     if (gameInfo.gameType === "pvc") {
       gameInfo.p1Cords = placedCords;
+      //Find out why the first instance returns same cords
+      pvcGameController.autoPlace();
       gameInfo.p2Cords = pvcGameController.autoPlace();
-      console.log(gameController.players);
+      gameController.startGamePVC(gameInfo.p1Cords, gameInfo.p2Cords);
     } else {
       //TODO after PVC
       gameInfo.p1Cords = placedCords;
@@ -113,7 +115,7 @@ const pvcGameController = {
   autoPlace: function () {
     let ships = gameController.getShips();
     let cordArr = boardRandomizer.initiate(ships);
-    boardRandomizer.cordArr = []; //garbage collection
+    boardRandomizer.resetData(); //garbage collection
     return cordArr;
   },
 };

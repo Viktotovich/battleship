@@ -282,7 +282,6 @@ const verticalController = {
     }
   },
   isValid(index, startPoint) {
-    console.log(index, startPoint);
     if (index > 99) {
       return false;
     } else {

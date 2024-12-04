@@ -222,7 +222,7 @@ const toolkitController = {
 /* 
 TODO: 
   1 - understand why board-randomizer's genRX (rx + shipLength <= 10) works
-  2 - make resetPlacement work - 70% done. Make the currently placing tab work or disable after click. Dont let the player start if no ships placed
+  2 - make resetPlacement work - 90% done - Dont let the player start if no ships placed
   5 - disable hard algorithm, if this project seems like it wont be done by 7Dec (due to 
   work)
   6 - Make the ready button work, and start game!

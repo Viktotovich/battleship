@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { Player } from "../components/players";
 import { Computer } from "../components/computer";
 
@@ -79,6 +80,20 @@ const gameController = {
 
     return { carrier, battleship, cruiser, submarine, destroyer };
   },
+  startGamePVC: function (p1Cordinates, p2Cordinates) {
+    let ships = gameController.getShips();
+    let shipArr = [];
+
+    Object.values(ships).forEach((ship) => {
+      shipArr.push(ship);
+    });
+
+    gameController.players.forEach((player) => {
+      //continue here, also have the computer controls somewhere
+    });
+  },
 };
+
+const computerControl = null;
 
 export { gameController };
