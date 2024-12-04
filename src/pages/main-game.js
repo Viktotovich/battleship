@@ -92,7 +92,6 @@ const gameInfo = {
   continue: function (placedCords) {
     if (gameInfo.gameType === "pvc") {
       gameInfo.p1Cords = placedCords;
-      boardRandomizer.resetData();
       gameInfo.p2Cords = pvcGameController.autoPlace();
       console.log(gameController.players);
     } else {
@@ -100,6 +99,9 @@ const gameInfo = {
       gameInfo.p1Cords = placedCords;
       pvpGameController.nextPlayer();
     }
+  },
+  resetDrag: function () {
+    dragHandler.reset();
   },
 };
 

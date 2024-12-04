@@ -163,6 +163,8 @@ const toolkitController = {
     let ships = gameController.getShips();
     let cordArr = boardRandomizer.initiate(ships);
     toolkitController.unpackCords(cordArr);
+
+    boardRandomizer.resetData();
   },
   unpackCords: function (cordArr) {
     cordArr.forEach((cord) => {
@@ -202,8 +204,13 @@ const toolkitController = {
     }
   },
   resetPlacement: function () {
-    //put showBoard method here, so we can reset board
-    //I have a feeling previous implementation of reset didnt work because some other arr was storing the DOM references, we'd have to reset that too - Continue here
+    //create a new set of doms and remove references to the old ones
+    let takenSlots = document.querySelectorAll(".unavailable");
+    takenSlots.forEach((slot) => {
+      slot.classList.remove("unavailable");
+      slot.classList.remove("ship-present");
+      slot.classList.add("available");
+    });
   },
 };
 
