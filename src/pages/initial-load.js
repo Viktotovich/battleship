@@ -29,7 +29,7 @@ const initialPageController = {
     pvpButton.classList.add("pvp");
     pvcButton.classList.add("pvc");
 
-    pvpButton.textContent = "Play against a player";
+    pvpButton.textContent = "Play against a player (Coming soon!)";
     pvcButton.textContent = "Play against a computer";
 
     form.appendChild(gameTypeContainer);
@@ -37,6 +37,8 @@ const initialPageController = {
     gameTypeContainer.appendChild(pvcButton);
 
     this.activateListeners(pvpButton, pvcButton);
+
+    pvpButton.setAttribute("disabled", "");
 
     return form;
   },

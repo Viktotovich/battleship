@@ -136,6 +136,7 @@ const domController = {
     return toolKitContainer;
   },
   markAllPlaced: function () {
+    //should be better
     let shipToPlaceContainer = document.querySelector(
       ".ships-to-place-container"
     );
@@ -210,8 +211,6 @@ const toolkitController = {
 TODO: 
   1 - understand why board-randomizer's genRX (rx + shipLength <= 10) works
   2 - make resetPlacement work
-  3 - Clear the ships to Place container after randomizeBoard calls
-  4 - disable pvp, we are not going to do that anytime soon
   5 - disable hard algorithm, if this project seems like it wont be done by 7Dec (due to 
   work)
   6 - Make the ready button work, and start game!

@@ -92,6 +92,7 @@ const gameInfo = {
   continue: function (placedCords) {
     if (gameInfo.gameType === "pvc") {
       gameInfo.p1Cords = placedCords;
+      boardRandomizer.resetData();
       gameInfo.p2Cords = pvcGameController.autoPlace();
       console.log(gameController.players);
     } else {
@@ -110,6 +111,7 @@ const pvcGameController = {
   autoPlace: function () {
     let ships = gameController.getShips();
     let cordArr = boardRandomizer.initiate(ships);
+    boardRandomizer.cordArr = []; //garbage collection
     return cordArr;
   },
 };

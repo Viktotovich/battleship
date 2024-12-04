@@ -8,10 +8,13 @@ import { cordConverter } from "../controllers/cord-value-converter";
 const boardRandomizer = {
   cordTree: null,
   cordArr: [],
+  resetData: function () {
+    this.cordTree = null;
+    this.cordArr = [];
+  },
   initiate: function (ships) {
     this.cordTree = new Tree([-1]); // the only value that wont conflict with anything
     boardRandomizer.assignRandomDirection(ships);
-    console.log(boardRandomizer.cordArr);
     return boardRandomizer.cordArr;
   },
   assignRandomDirection: function (ships) {
