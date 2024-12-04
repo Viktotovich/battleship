@@ -52,6 +52,21 @@
   display: flex;
 }
 
+.ship-details-container {
+  display: grid;
+  justify-content: center;
+}
+
+.ship-container.vertical {
+  display: flex;
+  flex-direction: column;
+  width: 2.5rem;
+}
+
+.ship-container.vertical .ship-piece {
+  padding: 1rem 0.2rem;
+}
+
 .ship-piece {
   display: flex;
   flex-direction: column;

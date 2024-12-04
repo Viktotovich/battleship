@@ -86,11 +86,14 @@ const dragHandler = {
     });
   },
   toggle: function () {
+    const shipContainer = document.querySelector(".ship-container");
     if (dragHandler.angle === "horizontal") {
+      shipContainer.classList.add("vertical");
       dragHandler.angle = "vertical";
       dragHandler.disableH();
       verticalController.initiate(dragHandler.currentPlayerDOM);
     } else {
+      shipContainer.classList.remove("vertical");
       dragHandler.angle = "horizontal";
       dragHandler.disableV();
       horizontalController.initiate(dragHandler.currentPlayerDOM);
