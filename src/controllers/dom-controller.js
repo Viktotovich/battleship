@@ -113,17 +113,13 @@ const domController = {
   createButtonToolkit: function () {
     const toolKitContainer = document.createElement("div");
     const randomizeButton = document.createElement("button");
-    const resetButton = document.createElement("button");
 
     toolKitContainer.classList.add("toolkit-container");
     toolKitContainer.appendChild(randomizeButton);
-    toolKitContainer.appendChild(resetButton);
 
     randomizeButton.textContent = "Randomize Selection";
-    resetButton.textContent = "Reset Selection";
 
     randomizeButton.classList.add("randomize-button");
-    resetButton.classList.add("reset-button");
 
     //the board MUST BE CLEAN AND RESET
     randomizeButton.addEventListener(
@@ -132,7 +128,6 @@ const domController = {
     );
 
     randomizeButton.addEventListener("click", domController.markAllPlaced);
-    resetButton.addEventListener("click", toolkitController.resetPlacement);
 
     return toolKitContainer;
   },
