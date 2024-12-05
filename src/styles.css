@@ -147,6 +147,10 @@
 }
 
 .player-two-board-piece.hit {
+  background-color: gray;
+}
+
+.player-two-board-piece.hit.has-ship {
   background-color: rgb(242, 116, 116);
   animation: alternate burning infinite ease-in-out 3s;
 }
@@ -158,4 +162,13 @@
   to {
     background-color: rgb(220, 51, 41);
   }
+}
+
+.player-one-board-piece.hit {
+  background-color: gray;
+}
+
+.player-one-board-piece.hit.has-ship {
+  background-color: rgb(242, 116, 116);
+  animation: alternate burning infinite ease-in-out 3s;
 }

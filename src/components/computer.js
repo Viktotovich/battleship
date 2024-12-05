@@ -1,5 +1,4 @@
 import { easyAlgorithm } from "../algorithms/easy-algorithm";
-import { trailingAlgorithm } from "../algorithms/trailing-algorithm";
 
 class Computer {
   constructor(difficulty, playerObj) {
@@ -10,25 +9,17 @@ class Computer {
   }
 
   play() {
-    if (trailingAlgorithm.trailing === true) {
-      let { newCords, lastAction } = trailingAlgorithm.continueTrailing();
-      let [x, y] = newCords;
+    let [x, y] = this.algorithm();
+    let attackResponse = this.playerObj.opponent.gameboard.receiveAttack([
+      x,
+      y,
+    ]);
 
-      let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
-        x,
-        y,
-      ]);
-
-      return this.unpackTrail(attackResponce, newCords, lastAction);
-    } else {
-      let [x, y] = this.algorithm();
-      let attackResponce = this.playerObj.opponent.gameboard.receiveAttack([
-        x,
-        y,
-      ]);
-
-      return this.unpackResponce(attackResponce, [x, y]);
-    }
+    return {
+      attackResponse,
+      x,
+      y,
+    };
   }
 
   //Hunt and Target algorithm is in-common between all
@@ -37,45 +28,17 @@ class Computer {
       //victory through randomness
       return easyAlgorithm.play; //return a callback
       //return easyAlgorithm.getRandomCord
-    } else if (this.difficulty === "normal") {
-      /* easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
-      
-      Improved: The space between each shot is the length of the shortest living ship*/
-      return;
-    } else {
-      /* You know shit is about to get real when I link a video to Vsauce
-      
-      https://www.youtube.com/watch?v=LbALFZoRrw8
-
-      Give a warning: You Are going to Loose
-
-      Algorithm: Probability maps
-      */
-      return;
     }
   }
+}
 
-  unpackResponce(attackResponce, cords) {
-    //if you tried to hit an already hit tile, call the algorithm again
-    if (
-      attackResponce.message === "repetition" &&
-      this.playerObj.opponent.gameboard.shipCount !== 0
-    ) {
-      return this.play();
-    } else if (attackResponce.message === "bullseye") {
-      //if successful, trail
-      return trailingAlgorithm.initiate(cords);
-    } else if (attackResponce.message === "sunk") {
-      //if ship sunk, quit trail mode
-      trailingAlgorithm.stop();
-      return this.algorithm(); // we might need to return the success message too
-    } else {
-      //if a miss - return the response for other funcs to handle
-      return attackResponce;
-    }
-  }
+export { Computer };
 
-  unpackTrail(attackResponce, cords, lastAction) {
+/*
+  Project is taking too long, so we are cutting down features (
+
+  Feature graveyard:
+   unpackTrail(attackResponce, cords, lastAction) {
     if (
       attackResponce.message === "repetition" &&
       this.playerObj.opponent.gameboard.shipCount !== 0
@@ -116,6 +79,22 @@ class Computer {
     let sortedShips = shipsAlive.sort((a, b) => a.health - b.health);
     return sortedShips[0].length;
   }
-}
 
-export { Computer };
+
+  else if (this.difficulty === "normal") {
+        easy 2-step-space based algorithm, victory through efficient space-ing. Parody Algorithm.
+      
+      Improved: The space between each shot is the length of the shortest living ship
+      return;
+    } else {
+      You know shit is about to get real when I link a video to Vsauce
+      
+      https://www.youtube.com/watch?v=LbALFZoRrw8
+
+      Give a warning: You Are going to Loose
+
+      Algorithm: Probability maps
+      
+      return;
+    }
+*/

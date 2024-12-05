@@ -12,14 +12,10 @@ const pvcScreenController = {
   createTitle: function () {
     const titleContainer = document.createElement("div");
     const title = document.createElement("h2");
-    const pvcDescription = document.createElement("div");
 
     title.textContent = "Please select the difficulty.";
-    pvcDescription.innerHTML =
-      "Don't select hard for giggles because <em><strong>you will</strong></em> loose. This is <strong>not</strong> a warning. Average human wins in 60-70 moves, the algorithm wins in 58.";
 
     titleContainer.appendChild(title);
-    titleContainer.appendChild(pvcDescription);
 
     return titleContainer;
   },
@@ -38,8 +34,11 @@ const pvcScreenController = {
     buttonContainer.appendChild(hardDifficulty);
 
     easyDifficulty.textContent = "Easy";
-    mediumDifficulty.textContent = "Medium";
-    hardDifficulty.textContent = "⚠️Hard⚠️";
+    mediumDifficulty.textContent = "Medium (Under works)";
+    hardDifficulty.textContent = "⚠️Hard⚠️ (Under works)";
+
+    mediumDifficulty.setAttribute("disabled", "");
+    hardDifficulty.setAttribute("disabled", "");
 
     easyDifficulty.addEventListener("click", difficultyController.callEasy);
     mediumDifficulty.addEventListener("click", difficultyController.callNormal);

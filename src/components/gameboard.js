@@ -25,7 +25,6 @@ class Gameboard {
   }
 
   placeShip(shipObj, cordObj) {
-    console.log(cordObj);
     let ship = this.unpackShip(shipObj);
     let placementData;
     cordObj.direction === "horizontal"

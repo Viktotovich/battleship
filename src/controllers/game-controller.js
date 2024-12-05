@@ -145,25 +145,48 @@ const playerControls = {
   fire: function (e) {
     e.preventDefault();
 
-    if (gameController.turn % 2 !== 0) {
-      return;
-    }
-
     e.target.removeEventListener("click", playerControls.fire);
     e.target.classList.remove("unhit");
     e.target.classList.add("hit");
     //if not player's turn, ignore
 
     let cord = playerControls.getCord(e.target);
-    playerControls.playerShoots(cord);
+    playerControls.playerShoots(cord, e);
   },
-  playerShoots: function (cord) {
+  playerShoots: function (cord, e) {
     const attackCords = cordConverter.unpackCords(cord);
     const attackInfo =
       playerControls.p2Object.gameboard.receiveAttack(attackCords);
 
     playerControls.turnInfo.innerHTML = `Missle launch ${attackInfo.attack}! Ground Report: <strong>${attackInfo.message}</strong>`;
-    console.log(attackInfo);
+
+    if (attackInfo.message !== "miss") {
+      console.log(attackInfo);
+
+      e.target.classList.add("has-ship");
+    }
+
+    playerControls.computerResponds();
+  },
+  computerResponds: function () {
+    let { attackResponse, x, y } = playerControls.computerControl.play();
+
+    if (attackResponse.message === "repetition") {
+      playerControls.computerResponds();
+    }
+
+    let flatCord = cordConverter.flattenCords(x, y);
+
+    playerControls.turnInfo.innerHTML = `Enemy launch ${attackResponse.attack}! Ground Report: <strong>${attackResponse.message}</strong>`;
+
+    let hitTile = document.getElementById(`player-one-cord-${flatCord}`);
+    hitTile.classList.remove("unhit");
+    hitTile.classList.add("hit");
+
+    if (attackResponse.message !== "miss") {
+      console.log(attackResponse);
+      hitTile.classList.add("has-ship");
+    }
   },
   getCord: function (tile) {
     let cord = tile.getAttribute("id");
