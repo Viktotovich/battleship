@@ -62,7 +62,8 @@ const dragHandler = {
       domController.getNextShip();
     }
   },
-  confirmSelection: function () {
+  confirmSelection: function (e) {
+    e.target.setAttribute("disabled", "");
     gameInfo.continue(dragHandler.placedCords);
   },
   disableV: function () {

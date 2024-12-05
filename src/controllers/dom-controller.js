@@ -146,7 +146,8 @@ const domController = {
 
     nextButton.addEventListener("click", domController.confirmSelection);
   },
-  confirmSelection: function () {
+  confirmSelection: function (e) {
+    e.target.setAttribute("disabled", "");
     gameInfo.continue(boardRandomizer.cordArr);
   },
 };
