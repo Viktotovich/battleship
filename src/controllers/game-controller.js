@@ -140,6 +140,12 @@ const playerControls = {
       );
       index++;
     });
+
+    if (this.p1Object.gameboard.shipCount < 5) {
+      throw new Error(
+        "Something went wrong, you have less than 5 ships. Please re-fresh the page and place all the 5 ships again. Thank you for your understanding"
+      );
+    }
   },
 };
 
