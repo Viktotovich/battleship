@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import { Player } from "../components/players";
 import { Computer } from "../components/computer";
+import { activeGameController } from "./dom-controller";
 
 /* Almost like classes, but just easier to visualize. Data can get overwhelming, 
 this helps keep track of everything - this is my standard pattern for other projects*/
@@ -120,6 +121,7 @@ const playerControls = {
     this.p2Cordinates = p2Cordinates;
 
     this.placeShipsOnObj();
+    activeGameController.initiate(); //it doesnt need to know anything
   },
   placeShipsOnObj: function () {
     let index = 0;

@@ -220,13 +220,59 @@ const toolkitController = {
   },
 };
 
-/* 
-TODO: 
-  1 - understand why board-randomizer's genRX (rx + shipLength <= 10) works
-  2 - make resetPlacement work - 90% done - Dont let the player start if no ships placed
-  5 - disable hard algorithm, if this project seems like it wont be done by 7Dec (due to 
-  work)
-  6 - Make the ready button work, and start game!
-*/
+// post-start controls
+const activeGameController = {
+  p1DOMBoard: null,
+  p2DOMBoard: null,
+  initiate: function () {
+    const contentSpace = document.getElementById("content");
+    contentSpace.textContent = "";
 
-export { domController };
+    //I've checked React for a bit, the idea is kind of like React..
+    const activeGameContainer = document.createElement("div");
+    const p1BoardContainer = activeGameController.createP1DOMBoard();
+    const p2BoardContainer = activeGameController.createP2DOMBoard();
+
+    activeGameContainer.classList.add("active-game-controller");
+
+    //need some time to think how the game screen will look like
+  },
+  createP1DOMBoard: function () {
+    const boardContainer = document.createElement("div");
+    let domArr = [];
+
+    for (let i = 0; i < 100; i++) {
+      let boardPiece = document.createElement("div");
+      boardPiece.classList.add("player-one-board-piece");
+      boardPiece.classList.add("unhit");
+      boardPiece.setAttribute("id", `player-one-cord-${i}`);
+      domArr.push(boardPiece);
+      boardContainer.appendChild(boardPiece);
+    }
+
+    activeGameController.p1DOMBoard = domArr;
+    boardContainer.classList.add("player-one-board-container");
+
+    return boardContainer;
+  },
+  createP2DOMBoard: function () {
+    const boardContainer = document.createElement("div");
+    let domArr = [];
+
+    for (let i = 0; i < 100; i++) {
+      let boardPiece = document.createElement("div");
+      boardPiece.classList.add("player-two-board-piece");
+      boardPiece.classList.add("unhit");
+      boardPiece.setAttribute("id", `player-two-cord-${i}`);
+      domArr.push(boardPiece);
+      boardContainer.appendChild(boardPiece);
+    }
+
+    activeGameController.p2DOMBoard = domArr;
+    boardContainer.classList.add("player-two-board-container");
+
+    return boardContainer;
+  },
+};
+
+export { domController, activeGameController };
