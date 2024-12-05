@@ -88,12 +88,59 @@ const gameController = {
       shipArr.push(ship);
     });
 
-    gameController.players.forEach((player) => {
-      //continue here, also have the computer controls somewhere
-    });
+    playerControls.initiate(
+      gameController.players[0],
+      gameController.players[1],
+      p1Cordinates,
+      p2Cordinates,
+      shipArr
+    );
   },
 };
 
-const computerControl = null;
+const playerControls = {
+  ships: null,
+  computerControl: null,
+  p1Object: null,
+  p2Object: null,
+  p1Cordinates: null,
+  p2Cordinates: null,
+  initiate: function (
+    p1Object,
+    computerControl,
+    p1Cordinates,
+    p2Cordinates,
+    shipArr
+  ) {
+    this.ships = shipArr;
+    this.p1Object = p1Object;
+    this.computerControl = computerControl;
+    this.p2Object = computerControl.playerObj;
+    this.p1Cordinates = p1Cordinates;
+    this.p2Cordinates = p2Cordinates;
+
+    this.placeShipsOnObj();
+  },
+  placeShipsOnObj: function () {
+    let index = 0;
+    this.ships.forEach((ship) => {
+      playerControls.p1Object.gameboard.placeShip(
+        ship,
+        playerControls.p1Cordinates[index]
+      );
+      index++;
+    });
+
+    index *= 0;
+
+    this.ships.forEach((ship) => {
+      playerControls.p2Object.gameboard.placeShip(
+        ship,
+        playerControls.p2Cordinates[index]
+      );
+      index++;
+    });
+  },
+};
 
 export { gameController };
