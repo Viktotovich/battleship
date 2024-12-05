@@ -2,6 +2,7 @@
 import { Player } from "../components/players";
 import { Computer } from "../components/computer";
 import { activeGameController } from "./dom-controller";
+import { cordConverter } from "./cord-value-converter";
 
 /* Almost like classes, but just easier to visualize. Data can get overwhelming, 
 this helps keep track of everything - this is my standard pattern for other projects*/
@@ -106,6 +107,7 @@ const playerControls = {
   p2Object: null,
   p1Cordinates: null,
   p2Cordinates: null,
+  turnInfo: null,
   initiate: function (
     p1Object,
     computerControl,
@@ -122,6 +124,50 @@ const playerControls = {
 
     this.placeShipsOnObj();
     activeGameController.initiate(); //it doesnt need to know anything
+    playerControls.activateListeners();
+    playerControls.appendNames();
+
+    this.turnInfo = document.querySelector("#turn-info");
+    this.turnInfo.textContent = "Round Start";
+  },
+  appendNames: function () {
+    const p1NameContainer = document.querySelector(".player1-name");
+    const p2NameContainer = document.querySelector(".player2-name");
+
+    p1NameContainer.textContent = playerControls.p1Object.name;
+    p2NameContainer.textContent = playerControls.p2Object.name;
+  },
+  activateListeners: function () {
+    activeGameController.p2DOMBoard.forEach((tile) => {
+      tile.addEventListener("click", playerControls.fire);
+    });
+  },
+  fire: function (e) {
+    e.preventDefault();
+
+    if (gameController.turn % 2 !== 0) {
+      return;
+    }
+
+    e.target.removeEventListener("click", playerControls.fire);
+    e.target.classList.remove("unhit");
+    e.target.classList.add("hit");
+    //if not player's turn, ignore
+
+    let cord = playerControls.getCord(e.target);
+    playerControls.playerShoots(cord);
+  },
+  playerShoots: function (cord) {
+    const attackCords = cordConverter.unpackCords(cord);
+    const attackInfo =
+      playerControls.p2Object.gameboard.receiveAttack(attackCords);
+
+    playerControls.turnInfo.innerHTML = `Missle launch ${attackInfo.attack}! Ground Report: <strong>${attackInfo.message}</strong>`;
+    console.log(attackInfo);
+  },
+  getCord: function (tile) {
+    let cord = tile.getAttribute("id");
+    return cord.substring(16);
   },
   placeShipsOnObj: function () {
     let index = 0;

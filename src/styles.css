@@ -114,3 +114,48 @@
   color: rgb(252, 252, 252);
   transition: all 0.5s;
 }
+
+/* After game start*/
+.active-game-controller {
+  display: grid;
+  grid-template-columns: 1fr 0.2fr 1fr;
+  grid-template-rows: 0.2fr 1fr;
+}
+
+.name-container {
+  grid-area: 1 / 1 / 2 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+}
+
+.player-one-board-container,
+.player-two-board-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 400px;
+  justify-content: center;
+  align-content: center;
+}
+
+.player-one-board-piece,
+.player-two-board-piece {
+  border: 1px solid black;
+  padding: 1.2rem;
+}
+
+.player-two-board-piece.hit {
+  background-color: rgb(242, 116, 116);
+  animation: alternate burning infinite ease-in-out 3s;
+}
+
+@keyframes burning {
+  from {
+    background-color: rgb(220, 31, 31);
+  }
+  to {
+    background-color: rgb(220, 51, 41);
+  }
+}

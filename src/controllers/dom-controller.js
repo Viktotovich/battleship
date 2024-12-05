@@ -231,12 +231,46 @@ const activeGameController = {
     //I've checked React for a bit, the idea is kind of like React..
     const activeGameContainer = document.createElement("div");
     const p1BoardContainer = activeGameController.createP1DOMBoard();
+    const infoTableContainer = activeGameController.createInfoTable();
     const p2BoardContainer = activeGameController.createP2DOMBoard();
+    const playerNameContainer = activeGameController.createNamesContainer();
 
     activeGameContainer.classList.add("active-game-controller");
+    activeGameContainer.appendChild(playerNameContainer);
+    activeGameContainer.appendChild(p1BoardContainer);
+    activeGameContainer.appendChild(infoTableContainer);
+    activeGameContainer.appendChild(p2BoardContainer);
 
-    //need some time to think how the game screen will look like
+    contentSpace.appendChild(activeGameContainer);
   },
+  createNamesContainer: function () {
+    const nameContainer = document.createElement("div");
+    const player1Name = document.createElement("p");
+    const player2Name = document.createElement("p");
+
+    nameContainer.classList.add("name-container");
+    player1Name.classList.add("player1-name");
+    player2Name.classList.add("player2-name");
+
+    nameContainer.appendChild(player1Name);
+    nameContainer.appendChild(player2Name);
+
+    return nameContainer;
+  },
+  /* TODO:
+    1 - Add event listeners for hits
+    2 - Make unhit tiles look like animated water
+    3 - Think about how the display will look like, current idea:
+    ----------------------------------------------------------------
+    ----------------------BATTLESHIP--------------------------------
+    ----------------------------------------------------------------
+          PlayerName-------Information Table----------Player2Name
+          BOARD1 ----------Information Table ---------BOARD2
+    ----------------------------------------------------------------
+    ----------------------------------------------------------------
+
+    4 - Endgame conditions: what happens when someone wins? do we just refresh the page?
+  */
   createP1DOMBoard: function () {
     const boardContainer = document.createElement("div");
     let domArr = [];
@@ -254,6 +288,34 @@ const activeGameController = {
     boardContainer.classList.add("player-one-board-container");
 
     return boardContainer;
+  },
+  createInfoTable: function () {
+    /* What the info table should contain: 
+        1 - who's turn is it
+        2 - health of enemy ships
+        3 - health of friendly ships
+    */
+    const infoTableContainer = document.createElement("div");
+    const enemyShipHealthContainer = document.createElement("div");
+    const friendlyShipHealthContainer = document.createElement("div");
+    const turnInfo = document.createElement("div");
+
+    turnInfo.setAttribute("id", "turn-info");
+    infoTableContainer.setAttribute("id", "info-table");
+    enemyShipHealthContainer.setAttribute("id", "enemy-ship-health-container");
+    friendlyShipHealthContainer.setAttribute(
+      "id",
+      "friendly-ship-health-container"
+    );
+
+    enemyShipHealthContainer.classList.add("health-info-container");
+    friendlyShipHealthContainer.classList.add("health-info-container");
+
+    infoTableContainer.appendChild(turnInfo);
+    infoTableContainer.appendChild(enemyShipHealthContainer);
+    infoTableContainer.appendChild(friendlyShipHealthContainer);
+
+    return infoTableContainer;
   },
   createP2DOMBoard: function () {
     const boardContainer = document.createElement("div");
