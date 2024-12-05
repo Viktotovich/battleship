@@ -290,11 +290,7 @@ const activeGameController = {
     return boardContainer;
   },
   createInfoTable: function () {
-    /* What the info table should contain: 
-        1 - who's turn is it
-        2 - health of enemy ships
-        3 - health of friendly ships
-    */
+    //TODO: Store computer attack information on another div
     const infoTableContainer = document.createElement("div");
     const enemyShipHealthContainer = document.createElement("div");
     const friendlyShipHealthContainer = document.createElement("div");

@@ -1,3 +1,15 @@
+/*Algorithm defunct, the time it would take to
+implement and use this would be far too much. I want to 
+include this badly, and this is a tough decision for me.
+
+This is axed, but if anyone wants to ever implement it,
+please do take inspiration, or feel free to use the below
+starting point.
+
+I wanted to make it work, but having very limited time
+makes it an astronomically difficult task.
+*/
+
 const trailingAlgorithm = {
   trailedCords: null,
   initialHit: null,
@@ -61,8 +73,3 @@ const trailingAlgorithm = {
 };
 
 export { trailingAlgorithm };
-
-/* questions to be answered with the algorithm: 
-  1 - What happens if we are chasing the correct trail?
-
-*/

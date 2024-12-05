@@ -172,7 +172,7 @@ const playerControls = {
     let { attackResponse, x, y } = playerControls.computerControl.play();
 
     if (attackResponse.message === "repetition") {
-      playerControls.computerResponds();
+      return (attackResponse = playerControls.computerResponds());
     }
 
     let flatCord = cordConverter.flattenCords(x, y);
