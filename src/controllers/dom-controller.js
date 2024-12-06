@@ -290,11 +290,11 @@ const activeGameController = {
     return boardContainer;
   },
   createInfoTable: function () {
-    //TODO: Store computer attack information on another div
     const infoTableContainer = document.createElement("div");
     const enemyShipHealthContainer = document.createElement("div");
     const friendlyShipHealthContainer = document.createElement("div");
     const turnInfo = document.createElement("div");
+    const clickToSpy = document.createElement("div");
 
     turnInfo.setAttribute("id", "turn-info");
     infoTableContainer.setAttribute("id", "info-table");
@@ -303,6 +303,9 @@ const activeGameController = {
       "id",
       "friendly-ship-health-container"
     );
+    clickToSpy.setAttribute("id", "click-to-spy");
+
+    clickToSpy.textContent = "Click to spy"; //modal
 
     enemyShipHealthContainer.classList.add("health-info-container");
     friendlyShipHealthContainer.classList.add("health-info-container");
@@ -310,6 +313,7 @@ const activeGameController = {
     infoTableContainer.appendChild(turnInfo);
     infoTableContainer.appendChild(enemyShipHealthContainer);
     infoTableContainer.appendChild(friendlyShipHealthContainer);
+    infoTableContainer.appendChild(clickToSpy);
 
     return infoTableContainer;
   },
@@ -330,6 +334,31 @@ const activeGameController = {
     boardContainer.classList.add("player-two-board-container");
 
     return boardContainer;
+  },
+  createSpyModal: function () {
+    const modal = document.createElement("dialog");
+    const closeButton = document.createElement("div");
+    const enemyLastAttack = document.createElement("p");
+    const enemyShipData = document.createElement("p");
+
+    modal.classList.add("spy-modal");
+    closeButton.classList.add("close-modal");
+    enemyLastAttack.classList.add("enemy-last-attack");
+    enemyShipData.classList.add("enemy-ship-data");
+
+    modal.appendChild(closeButton);
+    modal.appendChild(enemyLastAttack);
+    modal.appendChild(enemyShipData);
+
+    closeButton.textContent = "x";
+
+    closeButton.addEventListener("click", activeGameController.closeModal);
+    return modal;
+  },
+  closeModal: function (e) {
+    e.preventDefault();
+    const modalSpace = document.querySelector("#modal-reserved-space");
+    modalSpace.textContent = "";
   },
 };
 

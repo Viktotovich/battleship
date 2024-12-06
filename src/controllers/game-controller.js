@@ -126,6 +126,7 @@ const playerControls = {
     activeGameController.initiate(); //it doesnt need to know anything
     playerControls.activateListeners();
     playerControls.appendNames();
+    playerControls.activateSpyTool();
 
     this.turnInfo = document.querySelector("#turn-info");
     this.turnInfo.textContent = "Round Start";
@@ -177,14 +178,13 @@ const playerControls = {
 
     let flatCord = cordConverter.flattenCords(x, y);
 
-    playerControls.turnInfo.innerHTML = `Enemy launch ${attackResponse.attack}! Ground Report: <strong>${attackResponse.message}</strong>`;
+    lastAttackData.p2LastAttackResponse = attackResponse;
 
     let hitTile = document.getElementById(`player-one-cord-${flatCord}`);
     hitTile.classList.remove("unhit");
     hitTile.classList.add("hit");
 
     if (attackResponse.message !== "miss") {
-      console.log(attackResponse);
       hitTile.classList.add("has-ship");
     }
   },
@@ -218,6 +218,34 @@ const playerControls = {
       );
     }
   },
+  activateSpyTool: function () {
+    let spyTool = document.querySelector("#click-to-spy");
+    spyTool.addEventListener("click", lastAttackData.getEnemyInformation);
+  },
 };
 
+const lastAttackData = {
+  p1LastAttackResponse: null,
+  p2LastAttackResponse: null,
+  getEnemyInformation: function (e) {
+    e.preventDefault();
+    if (lastAttackData.p2LastAttackResponse === null) {
+      return;
+    }
+
+    let modalSpace = document.getElementById("modal-reserved-space");
+    modalSpace.textContent = "";
+
+    let modal = activeGameController.createSpyModal();
+    modalSpace.appendChild(modal);
+    modal.show();
+
+    const enemyLastAttack = document.querySelector(".enemy-last-attack");
+    const enemyShipData = document.querySelector(".enemy-ship-data");
+
+    enemyLastAttack.innerHTML = `MUAHAHAHAAHA. Our super evil missle launch was a ${lastAttackData.p2LastAttackResponse.attack}! Ground Report: <strong>${lastAttackData.p2LastAttackResponse.message}</strong>`;
+
+    enemyShipData.textContent = `${playerControls.p1Object.name} sire, our intellegence reports that the enemy has ${playerControls.p2Object.gameboard.shipCount} ships alive!`;
+  },
+};
 export { gameController };
