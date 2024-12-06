@@ -162,12 +162,20 @@ const playerControls = {
     playerControls.turnInfo.innerHTML = `Missle launch ${attackInfo.attack}! Ground Report: <strong>${attackInfo.message}</strong>`;
 
     if (attackInfo.message !== "miss") {
-      console.log(attackInfo);
-
       e.target.classList.add("has-ship");
     }
 
+    if (playerControls.computerLost()) {
+      //end game
+    }
+
     playerControls.computerResponds();
+  },
+  playerLost: function () {
+    return playerControls.p1Object.gameboard.shipsCount === 0 ? true : false;
+  },
+  computerLost: function () {
+    return playerControls.p2Object.gameboard.shipsCount === 0 ? true : false;
   },
   computerResponds: function () {
     let { attackResponse, x, y } = playerControls.computerControl.play();
@@ -186,6 +194,10 @@ const playerControls = {
 
     if (attackResponse.message !== "miss") {
       hitTile.classList.add("has-ship");
+    }
+
+    if (playerControls.playerLost()) {
+      //end game
     }
   },
   getCord: function (tile) {
@@ -225,7 +237,6 @@ const playerControls = {
 };
 
 const lastAttackData = {
-  p1LastAttackResponse: null,
   p2LastAttackResponse: null,
   getEnemyInformation: function (e) {
     e.preventDefault();
@@ -248,4 +259,7 @@ const lastAttackData = {
     enemyShipData.textContent = `${playerControls.p1Object.name} sire, our intellegence reports that the enemy has ${playerControls.p2Object.gameboard.shipCount} ships alive!`;
   },
 };
+
+//Add an end-game condition and pop-up
+
 export { gameController };
