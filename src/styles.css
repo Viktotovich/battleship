@@ -1,7 +1,88 @@
+html {
+  background-color: ghostwhite;
+  --default-font: "Courier New";
+}
+
 #content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+}
+
+h2 {
+  font-family: var(--default-font);
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.game-type-container {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.pvc,
+.pvp {
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+.pvc:hover,
+.pvp:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+/*Difficulty Selector */
+.difficulty-buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.difficulty-buttons button {
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+.difficulty-buttons button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+.title {
+  margin: 2rem 0;
+  font-size: 1.2rem;
+  font-family: var(--default-font);
+}
+
+/* Name section*/
+form div input {
+  margin-top: 3rem;
+}
+
+form div input,
+form div button {
+  padding: 0 1rem;
+}
+
+form div button {
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+form div button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
 }
 
 /* main-game.js*/
@@ -20,6 +101,31 @@
 }
 
 /* Ships while placing */
+.toggle-direction-container {
+  display: flex;
+  margin: 0.8rem 0;
+  align-items: center;
+}
+
+.toggle-direction-button,
+.randomize-button {
+  padding: 0.3rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+.toggle-direction-button:hover,
+.randomize-button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+.current-direction {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
 .place-ships-menu {
   margin: 1rem 0 0;
   padding-left: 2rem;
@@ -173,3 +279,7 @@
   background-color: rgb(242, 116, 116);
   animation: alternate burning infinite ease-in-out 3s;
 }
+
+/* Game started */
+
+/* Modals */

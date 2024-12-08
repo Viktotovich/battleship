@@ -25,6 +25,7 @@ const pvcScreenController = {
     const mediumDifficulty = document.createElement("button");
     const hardDifficulty = document.createElement("button");
 
+    buttonContainer.classList.add("difficulty-buttons");
     easyDifficulty.classList.add("difficulty-select");
     mediumDifficulty.classList.add("difficulty-select");
     hardDifficulty.classList.add("difficulty-select");
