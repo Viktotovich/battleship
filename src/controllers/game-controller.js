@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { Player } from "../components/players";
 import { Computer } from "../components/computer";
-import { activeGameController } from "./dom-controller";
+import { activeGameController, domController } from "./dom-controller";
 import { cordConverter } from "./cord-value-converter";
 
 /* Almost like classes, but just easier to visualize. Data can get overwhelming, 
@@ -166,7 +166,7 @@ const playerControls = {
     }
 
     if (playerControls.computerLost()) {
-      //end game
+      endGame(playerControls.p1Object.name);
     }
 
     playerControls.computerResponds();
@@ -197,7 +197,7 @@ const playerControls = {
     }
 
     if (playerControls.playerLost()) {
-      //end game
+      endGame(playerControls.p2Object.name);
     }
   },
   getCord: function (tile) {
@@ -261,5 +261,8 @@ const lastAttackData = {
 };
 
 //Add an end-game condition and pop-up
+function endGame(winner) {
+  domController.activeGameController.endGameModal(winner);
+}
 
 export { gameController };

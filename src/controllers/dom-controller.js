@@ -360,6 +360,25 @@ const activeGameController = {
     const modalSpace = document.querySelector("#modal-reserved-space");
     modalSpace.textContent = "";
   },
+  endGameModal: function (winner) {
+    const modalSpace = document.querySelector("#modal-reserved-space");
+    const modal = document.createElement("dialog");
+    const closeButton = document.createElement("div");
+    const flavorText = document.createElement("p");
+    const restartButton = document.createElement("button");
+
+    closeButton.textContent = "x";
+    restartButton.textContent = "Restart?";
+    modalSpace.textContent = "";
+    flavorText.textContent = `Congratulations to ${winner} on the succesful conquest of the seas! You can play again by playing restart :P (WCAG violation with emotes)`;
+
+    closeButton.addEventListener("click", activeGameController.closeModal());
+    restartButton.addEventListener("click", window.location.reload()); //thx stackoverflow
+    modalSpace.appendChild(modal);
+    modal.appendChild(closeButton);
+    modal.appendChild(flavorText);
+    modal.appendChild(restartButton);
+  },
 };
 
 export { domController, activeGameController };
