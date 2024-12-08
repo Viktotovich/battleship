@@ -291,28 +291,17 @@ const activeGameController = {
   },
   createInfoTable: function () {
     const infoTableContainer = document.createElement("div");
-    const enemyShipHealthContainer = document.createElement("div");
-    const friendlyShipHealthContainer = document.createElement("div");
     const turnInfo = document.createElement("div");
     const clickToSpy = document.createElement("div");
 
     turnInfo.setAttribute("id", "turn-info");
     infoTableContainer.setAttribute("id", "info-table");
-    enemyShipHealthContainer.setAttribute("id", "enemy-ship-health-container");
-    friendlyShipHealthContainer.setAttribute(
-      "id",
-      "friendly-ship-health-container"
-    );
+
     clickToSpy.setAttribute("id", "click-to-spy");
 
     clickToSpy.textContent = "Click to spy"; //modal
 
-    enemyShipHealthContainer.classList.add("health-info-container");
-    friendlyShipHealthContainer.classList.add("health-info-container");
-
     infoTableContainer.appendChild(turnInfo);
-    infoTableContainer.appendChild(enemyShipHealthContainer);
-    infoTableContainer.appendChild(friendlyShipHealthContainer);
     infoTableContainer.appendChild(clickToSpy);
 
     return infoTableContainer;
@@ -369,7 +358,12 @@ const activeGameController = {
     closeButton.textContent = "x";
     restartButton.textContent = "Restart?";
     modalSpace.textContent = "";
-    flavorText.textContent = `Congratulations to ${winner} on the succesful conquest of the seas! You can play again by playing restart`;
+    flavorText.innerHTML = `Congratulations to <strong>${winner}</strong> on their succesful conquest of the seas! <br><br>You can play again by pressing restart`;
+
+    closeButton.classList.add("close-modal");
+    flavorText.classList.add("flavor-text");
+    restartButton.classList.add("restart-button");
+    modal.classList.add("end-game-modal");
 
     closeButton.addEventListener("click", activeGameController.closeModal);
     restartButton.addEventListener("click", activeGameController.killswitch);

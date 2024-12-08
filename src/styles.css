@@ -235,6 +235,7 @@ form div button:hover {
   justify-content: space-between;
   align-items: center;
   font-size: large;
+  margin-top: 5rem;
 }
 
 .player-one-board-container,
@@ -281,5 +282,106 @@ form div button:hover {
 }
 
 /* Game started */
+#info-table {
+  width: 100%;
+  padding: 0 2rem;
+}
+
+#info-table {
+  width: 30ch;
+}
+
+#turn-info {
+  margin: 4rem 0;
+}
+
+#turn-info {
+  font-family: var(--default-font);
+}
+
+#click-to-spy {
+  display: flex;
+  justify-content: center;
+  font-family: "Impact", sans-serif;
+  padding: 0.2rem 1rem;
+  border: 1px solid black;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+#click-to-spy:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  background-color: gainsboro;
+  transition: transform 0.5s, background-color 1s;
+}
+
+.unhit {
+  animation: alternate forwards 5s infinite waves;
+}
+
+/* to make actual waves i'd need a full re-write (*/
+@keyframes waves {
+  from {
+    background-color: white;
+  }
+
+  to {
+    background-color: rgb(238, 247, 244);
+  }
+}
 
 /* Modals */
+dialog {
+  position: absolute;
+  top: 30%;
+  background-color: aliceblue;
+}
+
+.spy-modal p {
+  width: 45ch;
+  margin: 1.7rem 4rem;
+}
+
+/*I know why this doesnt work as intented, TOFIX */
+dialog::backdrop {
+  background-color: white;
+}
+
+.close-modal {
+  cursor: pointer;
+  margin: 0.4rem 0 0 0.4rem;
+}
+
+.enemy-last-attack strong {
+  color: rgb(142, 23, 23);
+  text-transform: uppercase;
+}
+
+.restart-button {
+  background-color: aliceblue;
+  border-radius: 5px;
+  padding: 0.4rem 2rem;
+  appearance: none;
+  margin-left: 40%;
+  margin-top: 0.5rem;
+}
+
+.restart-button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+.flavor-text {
+  width: 45ch;
+  padding: 1rem 4rem;
+  font-family: var(--default-font);
+  font-weight: 400;
+}
+
+.flavor-text strong {
+  background-color: rgb(215, 231, 245);
+  border-radius: 5px;
+  padding: 3px;
+  line-height: 1.5;
+}
