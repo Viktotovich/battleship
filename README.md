@@ -26,3 +26,19 @@ working 10-12 hours starting DEC 9. I love programing, but it doesnt pay the bil
 yet :(.
 
 Regardless, this project lives on.. and I hope to breathe in new ideas and life into it.
+
+09-12-2024 00:34 AM: My problem solving came in a clutch and work got postponed by a few days. This project actually turned out to be great - it's a great shame, and it was a huge pain, that my plans for medium and hard bots wasn't implemented.
+
+I have pages worth of algorithms and ideas for it, but doing so at this time isn't feasible - especially considering what lies ahead: React, Props, Typescript, and the whole world of JS.
+
+It's all about coming back to the main intention of the project: testing.
+
+In that area, it's a success. I tasted first blood for Jest, and I kind of liked it.
+
+Continuing on with the algorithms would've sated my thirst for curiousity, but it's an activity for another time. There are far more valuable things that can be done: like building a custom CMS, learning Medusa JS, and getting hands on a real world project.
+
+The Battleship project was fun, tough, had mistakes, and has pushed my boundaries. I loved it, for what it is - a testament to my dedication and passion.
+
+The mistakes I have learned, the frustrations I have faced, will be my strengths on next projects.
+
+I look forward to dive deeper into JS
