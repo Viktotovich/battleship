@@ -355,8 +355,7 @@ const activeGameController = {
     closeButton.addEventListener("click", activeGameController.closeModal);
     return modal;
   },
-  closeModal: function (e) {
-    e.preventDefault();
+  closeModal: function () {
     const modalSpace = document.querySelector("#modal-reserved-space");
     modalSpace.textContent = "";
   },
@@ -370,14 +369,19 @@ const activeGameController = {
     closeButton.textContent = "x";
     restartButton.textContent = "Restart?";
     modalSpace.textContent = "";
-    flavorText.textContent = `Congratulations to ${winner} on the succesful conquest of the seas! You can play again by playing restart :P (WCAG violation with emotes)`;
+    flavorText.textContent = `Congratulations to ${winner} on the succesful conquest of the seas! You can play again by playing restart`;
 
-    closeButton.addEventListener("click", activeGameController.closeModal());
-    restartButton.addEventListener("click", window.location.reload()); //thx stackoverflow
+    closeButton.addEventListener("click", activeGameController.closeModal);
+    restartButton.addEventListener("click", activeGameController.killswitch);
     modalSpace.appendChild(modal);
     modal.appendChild(closeButton);
     modal.appendChild(flavorText);
     modal.appendChild(restartButton);
+
+    modal.show();
+  },
+  killswitch: function () {
+    window.location.reload(); //thx stackoverflow
   },
 };
 

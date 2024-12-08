@@ -165,6 +165,7 @@ const playerControls = {
       e.target.classList.add("has-ship");
     }
 
+    console.log(playerControls.computerLost());
     if (playerControls.computerLost()) {
       endGame(playerControls.p1Object.name);
     }
@@ -172,12 +173,10 @@ const playerControls = {
     playerControls.computerResponds();
   },
   playerLost: function () {
-    console.log(playerControls.p1Object.gameboard.shipCount);
-    return playerControls.p1Object.gameboard.shipsCount === 0 ? true : false;
+    return playerControls.p1Object.gameboard.shipCount === 0 ? true : false;
   },
   computerLost: function () {
-    console.log(playerControls.p2Object.gameboard.shipCount);
-    return playerControls.p2Object.gameboard.shipsCount === 0 ? true : false;
+    return playerControls.p2Object.gameboard.shipCount === 0 ? true : false;
   },
   computerResponds: function () {
     let { attackResponse, x, y } = playerControls.computerControl.play();
@@ -264,7 +263,7 @@ const lastAttackData = {
 
 //Add an end-game condition and pop-up
 function endGame(winner) {
-  domController.activeGameController.endGameModal(winner);
+  activeGameController.endGameModal(winner);
 }
 
 export { gameController };
