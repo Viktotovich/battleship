@@ -172,9 +172,11 @@ const playerControls = {
     playerControls.computerResponds();
   },
   playerLost: function () {
+    console.log(playerControls.p1Object.gameboard.shipCount);
     return playerControls.p1Object.gameboard.shipsCount === 0 ? true : false;
   },
   computerLost: function () {
+    console.log(playerControls.p2Object.gameboard.shipCount);
     return playerControls.p2Object.gameboard.shipsCount === 0 ? true : false;
   },
   computerResponds: function () {
