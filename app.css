@@ -1,0 +1,390 @@
+html {
+  background-color: ghostwhite;
+  --default-font: "Courier New";
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+h2 {
+  font-family: var(--default-font);
+  background-color: aliceblue;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.game-type-container {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.pvc,
+.pvp {
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+.pvc:hover,
+.pvp:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+/*Difficulty Selector */
+.difficulty-buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.difficulty-buttons button {
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+.difficulty-buttons button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+.title {
+  margin: 2rem 0;
+  font-size: 1.2rem;
+  font-family: var(--default-font);
+}
+
+/* Name section*/
+form div input {
+  margin-top: 3rem;
+}
+
+form div input,
+form div button {
+  padding: 0 1rem;
+}
+
+form div button {
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+form div button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+/* main-game.js*/
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 400px;
+  justify-content: center;
+  align-content: center;
+}
+
+.board-piece {
+  border: 1px solid black;
+  padding: 1.2rem;
+}
+
+/* Ships while placing */
+.toggle-direction-container {
+  display: flex;
+  margin: 0.8rem 0;
+  align-items: center;
+}
+
+.toggle-direction-button,
+.randomize-button {
+  padding: 0.3rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+  appearance: none;
+}
+
+.toggle-direction-button:hover,
+.randomize-button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+.current-direction {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.place-ships-menu {
+  margin: 1rem 0 0;
+  padding-left: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.ships-to-place-container {
+  grid-area: 1 / 1 / -1 / -1 !important;
+  justify-self: center;
+  align-self: center;
+  border: pink 1px double;
+  padding: 1rem 3rem;
+}
+
+.current-ship {
+  margin-top: 1rem;
+}
+
+.place-ship-text {
+  text-decoration: underline;
+}
+
+.ship {
+  margin: 0.2rem;
+}
+
+.ship-container {
+  display: flex;
+}
+
+.ship-details-container {
+  display: grid;
+  justify-content: center;
+}
+
+.ship-container.vertical {
+  display: flex;
+  flex-direction: column;
+  width: 2.5rem;
+}
+
+.ship-container.vertical .ship-piece {
+  padding: 1rem 0.2rem;
+}
+
+.ship-piece {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 1.2rem;
+  background-color: beige;
+}
+
+/* Drag UI control */
+.available.dragover {
+  background-color: rgb(215, 249, 215);
+}
+
+.unavailable.dragover {
+  background-color: pink;
+}
+
+.invalid.dragover {
+  background-color: red;
+}
+
+.board-piece.ship-present {
+  background-color: rgb(186, 186, 211);
+}
+
+/* This has no point, it's just for practicing transforms and transitions */
+.ship-present:hover {
+  transform: perspective(400px) scale(1.11) rotateY(20deg);
+  transition: all linear 0.1s;
+}
+
+.confirm-selection {
+  align-self: center;
+  justify-self: center;
+  background-color: rgb(188, 230, 188);
+  border: 1px solid gainsboro;
+  cursor: pointer;
+  padding: 0.5rem 3rem;
+  border-radius: 5px;
+}
+
+.confirm-selection:hover {
+  background-color: rgb(33, 39, 33);
+  transform: scale(1.02);
+  color: rgb(252, 252, 252);
+  transition: all 0.5s;
+}
+
+/* After game start*/
+.active-game-controller {
+  display: grid;
+  grid-template-columns: 1fr 0.2fr 1fr;
+  grid-template-rows: 0.2fr 1fr;
+}
+
+.name-container {
+  grid-area: 1 / 1 / 2 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+  margin-top: 5rem;
+}
+
+.player-one-board-container,
+.player-two-board-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 400px;
+  justify-content: center;
+  align-content: center;
+}
+
+.player-one-board-piece,
+.player-two-board-piece {
+  border: 1px solid black;
+  padding: 1.2rem;
+}
+
+.player-two-board-piece.hit {
+  background-color: gray;
+}
+
+.player-two-board-piece.hit.has-ship {
+  background-color: rgb(242, 116, 116);
+  animation: alternate burning infinite ease-in-out 3s;
+}
+
+@keyframes burning {
+  from {
+    background-color: rgb(220, 31, 31);
+  }
+  to {
+    background-color: rgb(220, 51, 41);
+  }
+}
+
+.player-one-board-piece.hit {
+  background-color: gray;
+}
+
+.player-one-board-piece.hit.has-ship {
+  background-color: rgb(242, 116, 116);
+  animation: alternate burning infinite ease-in-out 3s;
+}
+
+/* Game started */
+#info-table {
+  width: 100%;
+  padding: 0 2rem;
+}
+
+#info-table {
+  width: 30ch;
+}
+
+#turn-info {
+  margin: 4rem 0;
+}
+
+#turn-info {
+  font-family: var(--default-font);
+}
+
+#click-to-spy {
+  display: flex;
+  justify-content: center;
+  font-family: "Impact", sans-serif;
+  padding: 0.2rem 1rem;
+  border: 1px solid black;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+#click-to-spy:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  background-color: gainsboro;
+  transition: transform 0.5s, background-color 1s;
+}
+
+.unhit {
+  animation: alternate forwards 5s infinite waves;
+}
+
+/* to make actual waves i'd need a full re-write (*/
+@keyframes waves {
+  from {
+    background-color: white;
+  }
+
+  to {
+    background-color: rgb(238, 247, 244);
+  }
+}
+
+/* Modals */
+dialog {
+  position: absolute;
+  top: 30%;
+  background-color: aliceblue;
+}
+
+.spy-modal p {
+  width: 45ch;
+  margin: 1.7rem 4rem;
+}
+
+/*I know why this doesnt work as intented, TOFIX */
+dialog::backdrop {
+  background-color: white;
+}
+
+.close-modal {
+  cursor: pointer;
+  margin: 0.4rem 0 0 0.4rem;
+}
+
+.enemy-last-attack strong {
+  color: rgb(142, 23, 23);
+  text-transform: uppercase;
+}
+
+.restart-button {
+  background-color: aliceblue;
+  border-radius: 5px;
+  padding: 0.4rem 2rem;
+  appearance: none;
+  margin-left: 40%;
+  margin-top: 0.5rem;
+}
+
+.restart-button:hover {
+  background-color: rgb(215, 231, 245);
+  cursor: pointer;
+}
+
+.flavor-text {
+  width: 45ch;
+  padding: 1rem 4rem;
+  font-family: var(--default-font);
+  font-weight: 400;
+}
+
+.flavor-text strong {
+  background-color: rgb(215, 231, 245);
+  border-radius: 5px;
+  padding: 3px;
+  line-height: 1.5;
+}
+
+
+/*# sourceMappingURL=app.css.map*/
