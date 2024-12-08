@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 /* main-game.js*/
 .board-container {
   display: grid;

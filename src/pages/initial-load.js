@@ -44,15 +44,11 @@ const initialPageController = {
   },
 
   createTitle() {
-    const titleContainer = document.createElement("div");
     const title = document.createElement("h2");
-    const battleshipImage = document.createElement("div");
 
     title.textContent = "Play BattleShip";
 
-    titleContainer.appendChild(title);
-    titleContainer.appendChild(battleshipImage);
-    return titleContainer;
+    return title;
   },
 
   activateListeners(pvpButton, pvcButton) {
